@@ -10,8 +10,20 @@ const generateToken = (payload) =>
 exports.register = async (req, res) => {
   try {
     const { companyName, email, password } = req.body;
+
+    // optionally check for existing email
+    const existing = await Admin.findOne({ where: { email } });
+    if (existing) {
+      return res.status(400).json({ error: 'Email already registered' });
+    }
+
     const hash = await bcrypt.hash(password, 10);
-    const admin = await Admin.create({ companyName, email, password: hash });
+    const admin = await Admin.create({
+      companyName,
+      email,
+      password: hash,
+    });
+
     res.status(201).json({ message: 'Admin created', id: admin.id });
   } catch (err) {
     res.status(400).json({ error: err.message });
@@ -21,16 +33,25 @@ exports.register = async (req, res) => {
 // POST /api/admin/login
 exports.login = async (req, res) => {
   try {
-    const { companyName, email, password } = req.body;
-    const admin = await Admin.findOne({ where: { companyName, email } });
-    if (!admin) return res.status(401).json({ error: 'Invalid credentials' });
+    const { email, password } = req.body;
+    console.log('Login body:', req.body);   // debug
+
+    const admin = await Admin.findOne({ where: { email } });
+    console.log('Found admin:', admin && admin.toJSON()); // debug
+
+    if (!admin) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
 
     const ok = await bcrypt.compare(password, admin.password);
-    if (!ok) return res.status(401).json({ error: 'Invalid credentials' });
+    if (!ok) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
 
     const token = generateToken({ id: admin.id, role: 'admin' });
     res.json({ token });
   } catch (err) {
+    console.error('Admin login error:', err);  // see stack trace
     res.status(500).json({ error: 'Server error' });
   }
 };

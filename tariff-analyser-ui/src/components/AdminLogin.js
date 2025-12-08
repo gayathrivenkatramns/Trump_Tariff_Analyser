@@ -1,7 +1,8 @@
+// AdminLogin.js
 import React, { useState } from 'react';
 import API from '../api';
 
-const AdminLogin = () => {
+const AdminLogin = ({ onLoginSuccess }) => {
   const [companyName, setCompanyName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -9,14 +10,14 @@ const AdminLogin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+
     try {
-      const res = await API.post('/admin/login', {
-        companyName,
-        email,
-        password,
-      });
+      const res = await API.post('/admin/login', { email, password });
       localStorage.setItem('adminToken', res.data.token);
+
       alert('Admin logged in');
+      onLoginSuccess && onLoginSuccess();   // tell App to show AdminDashboard
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed');
     }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import API from '../Api';
+import API from '../api';
 
 const AdminLogin = () => {
   const [companyName, setCompanyName] = useState('');

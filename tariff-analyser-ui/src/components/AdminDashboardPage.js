@@ -19,10 +19,10 @@ function AdminDashboardPage() {
 
   const handleLogout = () => {
     localStorage.removeItem("adminToken");
-    navigate("/login");
+    navigate("/"); // back to login shell
   };
 
-  // Mock numbers – later you can replace with real API data
+  // Mock numbers – later replace with real API data
   const totalUsers = 1247;
   const activeSessions = 178;
   const totalQueries = 45892;
@@ -38,56 +38,68 @@ function AdminDashboardPage() {
         </div>
 
         <nav className="sidebar-nav">
-          <button className="nav-item active">
+          <button className="nav-item active" type="button">
             <span className="nav-icon">
               <FiPieChart />
             </span>
             <span className="nav-label">Admin Dashboard</span>
           </button>
-          <button className="nav-item">
+
+          <button className="nav-item" type="button">
             <span className="nav-icon">
               <FiUsers />
             </span>
             <span className="nav-label">User Management</span>
           </button>
-          <button className="nav-item">
+
+          <button className="nav-item" type="button">
             <span className="nav-icon">
               <FiFileText />
             </span>
             <span className="nav-label">Agreements Management</span>
           </button>
-          <button className="nav-item">
+
+          <button className="nav-item" type="button">
             <span className="nav-icon">
               <FiGlobe />
             </span>
             <span className="nav-label">Country Database</span>
           </button>
-          <button className="nav-item">
+
+          {/* Product Library navigates to /admin/products */}
+          <button
+            className="nav-item"
+            type="button"
+            onClick={() => navigate("/admin/products")}
+          >
             <span className="nav-icon">
               <FiBox />
             </span>
             <span className="nav-label">Product Library</span>
           </button>
-          <button className="nav-item">
+
+          <button className="nav-item" type="button">
             <span className="nav-icon">
               <FiBarChart2 />
             </span>
             <span className="nav-label">Reports</span>
           </button>
-          <button className="nav-item">
+
+          <button className="nav-item" type="button">
             <span className="nav-icon">
               <FiBell />
             </span>
             <span className="nav-label">News Feed Manager</span>
           </button>
-          <button className="nav-item">
+
+          <button className="nav-item" type="button">
             <span className="nav-icon">
               <FiMessageSquare />
             </span>
             <span className="nav-label">Feedback Inbox</span>
           </button>
 
-          <button className="nav-item logout" onClick={handleLogout}>
+          <button className="nav-item logout" type="button" onClick={handleLogout}>
             <span className="nav-icon">
               <FiLogOut />
             </span>
@@ -177,14 +189,17 @@ function AdminDashboardPage() {
               </div>
             </div>
 
-            <div className="admin-function-card">
+            <div className="admin-function-card"
+              onClick={() => navigate("/admin/products")}
+              style={{ cursor: "pointer" }}
+            >
               <div className="admin-func-icon product">
                 <span>📦</span>
               </div>
               <div className="admin-func-content">
                 <h3>Product Library</h3>
                 <p>Maintain HS codes and product categories.</p>
-                <span className="admin-function-meta">8,429 products</span>
+                <span className="admin-function-meta">17,360 products</span>
               </div>
             </div>
 

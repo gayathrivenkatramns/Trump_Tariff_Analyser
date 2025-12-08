@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import API from '../api'; // <- make sure the file is src/api.js (lowercase)
+import API from '../api';
 
 const UserLogin = ({ onLoginSuccess }) => {
   const [username, setUsername] = useState(''); // not sent, only for UI

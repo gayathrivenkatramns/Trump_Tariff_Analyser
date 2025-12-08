@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import API from '../Api';
+import API from '../api';
 
 const Signup = ({ onSignupSuccess }) => {
   const [email, setEmail] = useState('');

@@ -1,26 +1,35 @@
+// App.js
 import React, { useState } from 'react';
 import AdminLogin from './components/AdminLogin';
 import UserLogin from './components/UserLogin';
 import Signup from './components/Signup';
 import UserDashboard from './components/UserDashboard';
+import AdminDashboardPage from './components/AdminDashboardPage';
 import './App.css';
 
 function App() {
-  const [mode, setMode] = useState('auth'); // 'auth' | 'dashboard'
+  const [mode, setMode] = useState('auth');          // 'auth' | 'userDashboard' | 'adminDashboard'
   const [activeTab, setActiveTab] = useState('admin'); // 'admin' | 'user'
 
   const handleSignupSuccess = (role) => {
-    // go back to login and select tab based on role
     setMode('auth');
     setActiveTab(role === 'admin' ? 'admin' : 'user');
   };
 
   const handleUserLoginSuccess = () => {
-    setMode('dashboard');
+    setMode('userDashboard');
   };
 
-  if (mode === 'dashboard') {
+  const handleAdminLoginSuccess = () => {
+    setMode('adminDashboard');
+  };
+
+  if (mode === 'userDashboard') {
     return <UserDashboard />;
+  }
+
+  if (mode === 'adminDashboard') {
+    return <AdminDashboardPage />;
   }
 
   return (
@@ -52,7 +61,7 @@ function App() {
             </div>
 
             {activeTab === 'admin' ? (
-              <AdminLogin />
+              <AdminLogin onLoginSuccess={handleAdminLoginSuccess} />
             ) : (
               <UserLogin onLoginSuccess={handleUserLoginSuccess} />
             )}

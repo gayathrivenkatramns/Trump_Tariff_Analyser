@@ -424,8 +424,8 @@ body {
 
 .sidebar.admin-sidebar {
   width: 240px;
-  background-color: white;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #111827;            /* FIX: dark text so it is visible */
   display: flex;
   flex-direction: column;
   padding: 20px 14px;
@@ -476,7 +476,7 @@ body {
   margin: 2px 0;
   border-radius: 8px;
   background: transparent;
-  color: black;
+  color: #111827;
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.15s ease, color 0.15s ease;
@@ -507,7 +507,7 @@ body {
 .nav-item.logout {
   margin-top: 16px;
   background: rgba(248, 113, 113, 0.12);
-  color: black;
+  color: #b91c1c;
 }
 
 /* Main admin content */
@@ -1176,12 +1176,12 @@ body {
 
 /* Inner wrapper for admin pages (used by ProductLibraryPage) */
 .admin-main-inner {
-  max-width: 1280px;   /* adjust: 1100–1400 depending on your taste */
-  margin: 0 auto;      /* center in remaining space beside sidebar */
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 /* Ensure cards inside that wrapper stretch fully */
 .admin-main-inner .card {
   width: 100%;
-  padding: 20px 24px 16px;  /* slightly more bottom padding */
+  padding: 20px 24px 16px;
 }

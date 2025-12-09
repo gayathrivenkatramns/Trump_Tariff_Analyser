@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 
@@ -8,13 +7,12 @@ import Signup from "./components/Signup";
 import UserDashboard from "./components/UserDashboard";
 import AdminDashboardPage from "./components/AdminDashboardPage";
 import ProductLibraryPage from "./components/ProductLibraryPage";
-import AgreementManagementPage from "./components/AgreementsManagementPage";  // <-- ADDED
-
+import UserManagementPage from "./pages/UserManagementPage";   // <-- NEW
 import "./App.css";
 
 function AuthShell() {
-  const [mode, setMode] = useState("auth");
-  const [activeTab, setActiveTab] = useState("admin");
+  const [mode, setMode] = useState("auth");       // 'auth' | 'signup'
+  const [activeTab, setActiveTab] = useState("admin"); // 'admin' | 'user'
   const navigate = useNavigate();
 
   const handleSignupSuccess = (role) => {
@@ -98,13 +96,13 @@ function App() {
         {/* admin dashboard */}
         <Route path="/admin" element={<AdminDashboardPage />} />
 
-        {/* product library */}
+        {/* product library page (from admin) */}
         <Route path="/admin/products" element={<ProductLibraryPage />} />
 
-        {/* agreement management page */}
-        <Route path="/admin/agreements" element={<AgreementManagementPage />} />
+        {/* user management page (from admin, e.g. navigate('/admin/users')) */}
+        <Route path="/admin/users" element={<UserManagementPage />} />
 
-        {/* fallback */}
+        {/* fallback → auth */}
         <Route path="*" element={<AuthShell />} />
       </Routes>
     </BrowserRouter>

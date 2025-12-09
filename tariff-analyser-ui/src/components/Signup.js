@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import API from '../api';
 
 const Signup = ({ onSignupSuccess }) => {
+  const [name, setName] = useState('');        // NEW
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('user');
   const [password, setPassword] = useState('');
@@ -10,8 +11,10 @@ const Signup = ({ onSignupSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
     try {
-      const res = await API.post('/auth/signup', { email, password, role });
+      // send name so it is stored in Users table
+      const res = await API.post('/auth/signup', { name, email, password, role });
       if (onSignupSuccess) onSignupSuccess(res.data.role);
     } catch (err) {
       setError(err.response?.data?.error || 'Signup failed');
@@ -20,6 +23,14 @@ const Signup = ({ onSignupSuccess }) => {
 
   return (
     <form className="form" onSubmit={handleSubmit}>
+      <label>Name</label>
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Your name"
+      />
+
       <label>Email</label>
       <input
         type="email"
@@ -29,16 +40,15 @@ const Signup = ({ onSignupSuccess }) => {
       />
 
       <label>Role</label>
-<select
-  className="input"
-  value={role}
-  onChange={(e) => setRole(e.target.value)}
->
-  <option value="admin">Admin</option>
-  <option value="analyst">Analyst</option>
-  <option value="user">User</option>
-</select>
-
+      <select
+        className="input"
+        value={role}
+        onChange={(e) => setRole(e.target.value)}
+      >
+        <option value="admin">Admin</option>
+        <option value="analyst">Analyst</option>
+        <option value="user">User</option>
+      </select>
 
       <label>Password</label>
       <input

@@ -13,6 +13,7 @@ import {
   FiTrendingUp,
 } from "react-icons/fi";
 import "../App.css";
+import ForexAnalysis from "./ForexAnalysis"; // <- new import
 
 const menuItems = [
   { id: "dashboard", label: "Dashboard", icon: <FiHome /> },
@@ -36,6 +37,12 @@ const UserDashboard = () => {
   };
 
   const renderContent = () => {
+    // Dedicated page for Forex Analysis
+    if (active === "forex") {
+      return <ForexAnalysis />;
+    }
+
+    // Simple placeholder headings for other menu items
     if (active !== "dashboard") {
       return (
         <h2 style={{ fontSize: 18 }}>
@@ -44,6 +51,7 @@ const UserDashboard = () => {
       );
     }
 
+    // Main dashboard view (default)
     return (
       <>
         {/* Top blue banner */}
@@ -55,60 +63,56 @@ const UserDashboard = () => {
           </p>
         </section>
 
-        {/* Quick Actions */}
-       {/* Quick Actions row */}
-<section className="qa-section">
-  <h3 className="section-title">Quick Actions</h3>
+        {/* Quick Actions row */}
+        <section className="qa-section">
+          <h3 className="section-title">Quick Actions</h3>
 
-  <div className="qa-grid">
+          <div className="qa-grid">
+            {/* Industry Explorer */}
+            <div className="qa-card" onClick={() => setActive("industry")}>
+              <div className="qa-icon qa-blue">
+                <FiLayers />
+              </div>
+              <div className="qa-text">
+                <h4>Industry Explorer</h4>
+                <p>Analyze trade volumes and agreements by industry.</p>
+              </div>
+            </div>
 
-    {/* Industry Explorer */}
-    <div className="qa-card" onClick={() => setActive("industry")}>
-      <div className="qa-icon qa-blue">
-        <FiLayers />
-      </div>
-      <div className="qa-text">
-        <h4>Industry Explorer</h4>
-        <p>Analyze trade volumes and agreements by industry.</p>
-      </div>
-    </div>
+            {/* Tariff Impact Analysis */}
+            <div className="qa-card" onClick={() => setActive("tariff")}>
+              <div className="qa-icon qa-indigo">
+                <FiBarChart2 />
+              </div>
+              <div className="qa-text">
+                <h4>Tariff Impact Analysis</h4>
+                <p>Compare tariff impacts across different periods.</p>
+              </div>
+            </div>
 
-    {/* Tariff Impact Analysis */}
-    <div className="qa-card" onClick={() => setActive("tariff")}>
-      <div className="qa-icon qa-indigo">
-        <FiBarChart2 />
-      </div>
-      <div className="qa-text">
-        <h4>Tariff Impact Analysis</h4>
-        <p>Compare tariff impacts across different periods.</p>
-      </div>
-    </div>
+            {/* Cost Calculator */}
+            <div className="qa-card" onClick={() => setActive("cost")}>
+              <div className="qa-icon qa-green">
+                <FiDollarSign />
+              </div>
+              <div className="qa-text">
+                <h4>Cost Calculator</h4>
+                <p>Calculate landed costs with all fees included.</p>
+              </div>
+            </div>
 
-    {/* Cost Calculator */}
-    <div className="qa-card" onClick={() => setActive("cost")}>
-      <div className="qa-icon qa-green">
-        <FiDollarSign />
-      </div>
-      <div className="qa-text">
-        <h4>Cost Calculator</h4>
-        <p>Calculate landed costs with all fees included.</p>
-      </div>
-    </div>
-
-    {/* Forex Analysis */}
-    <div className="qa-card" onClick={() => setActive("forex")}>
-      <div className="qa-icon qa-purple">
-        <FiGlobe />
-      </div>
-      <div className="qa-text">
-        <h4>Forex Analysis</h4>
-        <p>Track currency trends and volatility.</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
+            {/* Forex Analysis */}
+            <div className="qa-card" onClick={() => setActive("forex")}>
+              <div className="qa-icon qa-purple">
+                <FiGlobe />
+              </div>
+              <div className="qa-text">
+                <h4>Forex Analysis</h4>
+                <p>Track currency trends and volatility.</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Dashboard Row */}
         <section className="dash-row">
@@ -184,7 +188,9 @@ const UserDashboard = () => {
           {menuItems.map((item) => (
             <button
               key={item.id}
-              className={active === item.id ? "sidebar-item active" : "sidebar-item"}
+              className={
+                active === item.id ? "sidebar-item active" : "sidebar-item"
+              }
               onClick={() => setActive(item.id)}
             >
               <span className="icon">{item.icon}</span>

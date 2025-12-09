@@ -1,4 +1,4 @@
-// AdminLogin.js
+// src/components/AdminLogin.js
 import React, { useState } from 'react';
 import API from '../api';
 
@@ -13,11 +13,12 @@ const AdminLogin = ({ onLoginSuccess }) => {
     setError('');
 
     try {
-      const res = await API.post('/admin/login', { email, password });
+      // Shared auth login that reads from Users table and updates lastLogin
+      const res = await API.post('/auth/login', { email, password });
       localStorage.setItem('adminToken', res.data.token);
 
       alert('Admin logged in');
-      onLoginSuccess && onLoginSuccess();   // tell App to show AdminDashboard
+      if (onLoginSuccess) onLoginSuccess();
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed');
     }

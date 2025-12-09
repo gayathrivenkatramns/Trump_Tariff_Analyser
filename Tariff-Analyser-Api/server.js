@@ -1,6 +1,12 @@
 // server.js
 const express = require('express');
 const cors = require('cors');
+const { sequelize, User } = require('./models');
+const adminRoutes = require('./routes/adminRoutes');            // admin login/register
+const userRoutes = require('./routes/userRoutes');              // user login/register
+const authRoutes = require('./routes/authRoutes');              // shared login if needed
+const forexRoutes = require('./routes/forexRoutes');            // forex APIs
+const userManagementRoutes = require('./routes/userManagementRoutes'); // /users CRUD
 const dotenv = require('dotenv');
 const { sequelize } = require('./models');
 
@@ -32,6 +38,25 @@ app.get('/', (req, res) => {
   });
 });
 
+// Debug: Check if User model is loaded
+app.get('/api/debug', (req, res) => {
+  res.json({
+    userModelLoaded: !!User,
+    sequelizeConnected: !!sequelize,
+    message: 'Debug info',
+  });
+});
+
+// Mount APIs
+app.use('/api/admin', adminRoutes);          // e.g. POST /api/admin/login (old admin)
+app.use('/api/user', userRoutes);            // e.g. POST /api/user/login (old user)
+app.use('/api/auth', authRoutes);            // POST /api/auth/login (new shared login)
+app.use('/api/forex', forexRoutes);
+
+// IMPORTANT: base path must be /api/admin, not /api/admin/users
+// Inside userManagementRoutes you should define paths like:
+// router.get('/users', ...), router.post('/users', ...), etc.[web:96][web:99]
+app.use('/api/admin', userManagementRoutes);
 // Mount ALL APIs
 app.use('/api/admin', adminRoutes);
 app.use('/api/user', userRoutes);
@@ -48,14 +73,16 @@ const PORT = process.env.PORT || 5000;
 sequelize
   .sync()
   .then(() => {
-    console.log("✅ DB synced - All models loaded");
+    console.log('✓ DB synced');
+    console.log('✓ User model loaded:', !!User);
     app.listen(PORT, () => {
-      console.log(`🚀 Server running on http://localhost:${PORT}`);
-      console.log('📋 Available: /api/admin, /api/user, /api/auth, /api/products, /api/agreements');
+      console.log(`✓ Server running on port ${PORT}`);
+      console.log(`✓ Try: http://localhost:${PORT}/api/admin/users`);
     });
   })
   .catch((err) => {
-    console.error("❌ DB sync failed:", err);
+    console.error('✗ DB error:', err.message);
+    process.exit(1);
   });
 
 module.exports = app;

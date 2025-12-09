@@ -30,49 +30,31 @@ function AdminDashboardPage() {
   const totalQueries = 45892;
   const systemHealth = 98.2;
 
-  // Navigation menu items
+  // Sidebar menu items
   const menuItems = [
-    {
-      id: "dashboard",
-      label: "Admin Dashboard",
-      icon: <FiPieChart />,
-    },
-    {
-      id: "users",
-      label: "User Management",
-      icon: <FiUsers />,
-    },
-    {
-      id: "agreements",
-      label: "Agreements Management",
-      icon: <FiFileText />,
-    },
-    {
-      id: "countries",
-      label: "Country Database",
-      icon: <FiGlobe />,
-    },
-    {
-      id: "products",
-      label: "Product Library",
-      icon: <FiBox />,
-    },
-    {
-      id: "reports",
-      label: "Reports",
-      icon: <FiBarChart2 />,
-    },
-    {
-      id: "news",
-      label: "News Feed Manager",
-      icon: <FiBell />,
-    },
-    {
-      id: "feedback",
-      label: "Feedback Inbox",
-      icon: <FiMessageSquare />,
-    },
+    { id: "dashboard", label: "Admin Dashboard", icon: <FiPieChart /> },
+    { id: "users", label: "User Management", icon: <FiUsers /> },
+    { id: "agreements", label: "Agreements Management", icon: <FiFileText /> },
+    { id: "countries", label: "Country Database", icon: <FiGlobe /> },
+    { id: "products", label: "Product Library", icon: <FiBox /> },
+    { id: "reports", label: "Reports", icon: <FiBarChart2 /> },
+    { id: "news", label: "News Feed Manager", icon: <FiBell /> },
+    { id: "feedback", label: "Feedback Inbox", icon: <FiMessageSquare /> },
   ];
+
+  // Decide whether to navigate to a route or switch internal tab
+  const handleMenuClick = (itemId) => {
+    if (itemId === "products") {
+      navigate("/admin/products"); // ProductLibraryPage
+      return;
+    }
+    if (itemId === "agreements") {
+      navigate("/admin/agreements"); // AgreementManagementPage
+      return;
+    }
+    // Internal pages that stay under /admin
+    setCurrentPage(itemId);
+  };
 
   return (
     <div className="admin-layout">
@@ -87,8 +69,11 @@ function AdminDashboardPage() {
           {menuItems.map((item) => (
             <button
               key={item.id}
-              className={`nav-item ${currentPage === item.id ? "active" : ""}`}
-              onClick={() => setCurrentPage(item.id)}
+              type="button"
+              className={`nav-item ${
+                currentPage === item.id ? "active" : ""
+              }`}
+              onClick={() => handleMenuClick(item.id)}
             >
               <span className="nav-icon">{item.icon}</span>
               <span className="nav-label">{item.label}</span>
@@ -108,9 +93,9 @@ function AdminDashboardPage() {
         </nav>
       </aside>
 
-      {/* Main content */}
+      {/* Main content (for /admin internal views) */}
       <main className="admin-main">
-        {/* Render User Management Page */}
+        {/* User Management full page */}
         {currentPage === "users" && <UserManagement />}
 
         {/* Dashboard Page */}
@@ -157,13 +142,14 @@ function AdminDashboardPage() {
               </div>
             </section>
 
-            {/* Admin functions cards */}
+                        {/* Admin functions cards */}
             <section className="admin-section">
               <div className="admin-section-header">
                 <h2>Admin Functions</h2>
               </div>
 
               <div className="admin-functions-grid">
+                {/* User Management card */}
                 <div
                   className="admin-function-card"
                   onClick={() => setCurrentPage("users")}
@@ -179,7 +165,12 @@ function AdminDashboardPage() {
                   </div>
                 </div>
 
-                <div className="admin-function-card">
+                {/* Agreements Management card – navigates to /admin/agreements */}
+                <div
+                  className="admin-function-card"
+                  onClick={() => navigate("/admin/agreements")}
+                  style={{ cursor: "pointer" }}
+                >
                   <div className="admin-func-icon agreements">
                     <span>📄</span>
                   </div>
@@ -190,7 +181,12 @@ function AdminDashboardPage() {
                   </div>
                 </div>
 
-                <div className="admin-function-card">
+                {/* Country Database card */}
+                <div
+                  className="admin-function-card"
+                  onClick={() => setCurrentPage("countries")}
+                  style={{ cursor: "pointer" }}
+                >
                   <div className="admin-func-icon country">
                     <span>🌍</span>
                   </div>
@@ -201,7 +197,12 @@ function AdminDashboardPage() {
                   </div>
                 </div>
 
-                <div className="admin-function-card">
+                {/* Product Library card – navigates to /admin/products */}
+                <div
+                  className="admin-function-card"
+                  onClick={() => navigate("/admin/products")}
+                  style={{ cursor: "pointer" }}
+                >
                   <div className="admin-func-icon product">
                     <span>📦</span>
                   </div>
@@ -212,7 +213,12 @@ function AdminDashboardPage() {
                   </div>
                 </div>
 
-                <div className="admin-function-card">
+                {/* Reports card */}
+                <div
+                  className="admin-function-card"
+                  onClick={() => setCurrentPage("reports")}
+                  style={{ cursor: "pointer" }}
+                >
                   <div className="admin-func-icon reports">
                     <span>📊</span>
                   </div>
@@ -223,7 +229,12 @@ function AdminDashboardPage() {
                   </div>
                 </div>
 
-                <div className="admin-function-card">
+                {/* News Feed Manager card */}
+                <div
+                  className="admin-function-card"
+                  onClick={() => setCurrentPage("news")}
+                  style={{ cursor: "pointer" }}
+                >
                   <div className="admin-func-icon news">
                     <span>📰</span>
                   </div>
@@ -267,9 +278,10 @@ function AdminDashboardPage() {
                     <div className="admin-activity-title">
                       New user registered: john@example.com
                     </div>
-                    <div className="admin-activity-time">5 minutes ago</div>
+                                        <div className="admin-activity-time">5 minutes ago</div>
                   </div>
                 </li>
+
                 <li className="admin-activity-item">
                   <span className="admin-activity-icon green">🔄</span>
                   <div className="admin-activity-main">
@@ -279,6 +291,7 @@ function AdminDashboardPage() {
                     <div className="admin-activity-time">23 minutes ago</div>
                   </div>
                 </li>
+
                 <li className="admin-activity-item">
                   <span className="admin-activity-icon purple">📃</span>
                   <div className="admin-activity-main">
@@ -288,6 +301,7 @@ function AdminDashboardPage() {
                     <div className="admin-activity-time">1 hour ago</div>
                   </div>
                 </li>
+
                 <li className="admin-activity-item">
                   <span className="admin-activity-icon orange">📰</span>
                   <div className="admin-activity-main">
@@ -297,6 +311,7 @@ function AdminDashboardPage() {
                     <div className="admin-activity-time">2 hours ago</div>
                   </div>
                 </li>
+
                 <li className="admin-activity-item">
                   <span className="admin-activity-icon gray">💾</span>
                   <div className="admin-activity-main">
@@ -311,24 +326,10 @@ function AdminDashboardPage() {
           </>
         )}
 
-        {/* Placeholder Pages for Other Sections */}
-        {currentPage === "agreements" && (
-          <section className="admin-hero">
-            <h1>Agreements Management</h1>
-            <p>Coming soon...</p>
-          </section>
-        )}
-
+        {/* Placeholder Pages for internal tabs */}
         {currentPage === "countries" && (
           <section className="admin-hero">
             <h1>Country Database</h1>
-            <p>Coming soon...</p>
-          </section>
-        )}
-
-        {currentPage === "products" && (
-          <section className="admin-hero">
-            <h1>Product Library</h1>
             <p>Coming soon...</p>
           </section>
         )}
@@ -359,3 +360,5 @@ function AdminDashboardPage() {
 }
 
 export default AdminDashboardPage;
+
+

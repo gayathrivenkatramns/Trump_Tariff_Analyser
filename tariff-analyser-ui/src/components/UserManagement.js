@@ -309,7 +309,7 @@ function UserManagement() {
                           className="um-btn-small um-btn-edit"
                           title="Edit"
                         >
-                          ✎
+                          ✏️
                         </button>
                         <button
                           onClick={() => handleDeleteUser(user.id)}

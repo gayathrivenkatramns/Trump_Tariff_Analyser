@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 
@@ -8,10 +7,11 @@ import Signup from "./components/Signup";
 import UserDashboard from "./components/UserDashboard";
 import AdminDashboardPage from "./components/AdminDashboardPage";
 import ProductLibraryPage from "./components/ProductLibraryPage";
+import UserManagementPage from "./pages/UserManagementPage";   // <-- NEW
 import "./App.css";
 
 function AuthShell() {
-  const [mode, setMode] = useState("auth"); // 'auth' | 'signup'
+  const [mode, setMode] = useState("auth");       // 'auth' | 'signup'
   const [activeTab, setActiveTab] = useState("admin"); // 'admin' | 'user'
   const navigate = useNavigate();
 
@@ -21,12 +21,10 @@ function AuthShell() {
   };
 
   const handleUserLoginSuccess = () => {
-    // after successful user login go to /user
     navigate("/user");
   };
 
   const handleAdminLoginSuccess = () => {
-    // after successful admin login go to /admin
     navigate("/admin");
   };
 
@@ -34,9 +32,7 @@ function AuthShell() {
     <div className="app">
       <div className="card">
         <div className="logo">TI</div>
-        <h2>
-          {mode === "auth" ? "Welcome to TariffIntel" : "Create Account"}
-        </h2>
+        <h2>{mode === "auth" ? "Welcome to TariffIntel" : "Create Account"}</h2>
         <p className="subtitle">
           {mode === "auth"
             ? "Smart Intelligence for Global Tariffs"
@@ -100,8 +96,11 @@ function App() {
         {/* admin dashboard after login */}
         <Route path="/admin" element={<AdminDashboardPage />} />
 
-        {/* product library page, opened from admin (navigate('/admin/products')) */}
+        {/* product library page (from admin) */}
         <Route path="/admin/products" element={<ProductLibraryPage />} />
+
+        {/* user management page (from admin, e.g. navigate('/admin/users')) */}
+        <Route path="/admin/users" element={<UserManagementPage />} />
 
         {/* fallback → auth */}
         <Route path="*" element={<AuthShell />} />

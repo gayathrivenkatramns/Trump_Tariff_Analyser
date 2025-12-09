@@ -3,10 +3,12 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const { sequelize } = require('./models');
+
 const adminRoutes = require('./routes/adminRoutes');
 const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
-const productRoutes = require('./routes/productRoutes'); // Note capital R
+const productRoutes = require('./routes/productRoutes');
+const agreementRoutes = require('./routes/agreementRoutes');  // <-- NEW
 
 dotenv.config();
 
@@ -18,22 +20,24 @@ app.use(express.json());
 
 // Health check
 app.get('/', (req, res) => {
-  res.json({ 
-    message: 'Tariff-Analyser API is running', 
+  res.json({
+    message: 'Tariff-Analyser API is running',
     endpoints: {
       admin: '/api/admin',
-      user: '/api/user', 
+      user: '/api/user',
       auth: '/api/auth',
-      products: '/api/products'
+      products: '/api/products',
+      agreements: '/api/agreements'       // <-- NEW
     }
   });
 });
 
 // Mount ALL APIs
-app.use('/api/admin', adminRoutes);     // Admin login/register
-app.use('/api/user', userRoutes);       // User login/register  
-app.use('/api/auth', authRoutes);       // Shared signup
-app.use('/api/products', productRoutes); // Product CRUD
+app.use('/api/admin', adminRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/agreements', agreementRoutes);  // <-- NEW
 
 const PORT = process.env.PORT || 5000;
 
@@ -44,7 +48,7 @@ sequelize
     console.log('✅ DB synced - All models loaded');
     app.listen(PORT, () => {
       console.log(`🚀 Server running on http://localhost:${PORT}`);
-      console.log('📋 Available: /api/admin, /api/user, /api/auth, /api/products');
+      console.log('📋 Available: /api/admin, /api/user, /api/auth, /api/products, /api/agreements');
     });
   })
   .catch((err) => {

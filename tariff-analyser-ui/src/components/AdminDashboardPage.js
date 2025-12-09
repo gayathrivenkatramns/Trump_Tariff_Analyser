@@ -52,17 +52,18 @@ function AdminDashboardPage() {
             <span className="nav-label">User Management</span>
           </button>
 
-          <button className="nav-item" type="button">
-            <span className="nav-icon">
-              <FiFileText />
-            </span>
+           {/* 🔥 Agreements Navigation Added */}
+          <button
+            className="nav-item"
+            type="button"
+            onClick={() => navigate("/admin/agreements")}
+          >
+            <span className="nav-icon"><FiFileText /></span>
             <span className="nav-label">Agreements Management</span>
           </button>
 
           <button className="nav-item" type="button">
-            <span className="nav-icon">
-              <FiGlobe />
-            </span>
+            <span className="nav-icon"><FiGlobe /></span>
             <span className="nav-label">Country Database</span>
           </button>
 
@@ -167,7 +168,10 @@ function AdminDashboardPage() {
               </div>
             </div>
 
-            <div className="admin-function-card">
+            <div className="admin-function-card"
+              onClick={() => navigate("/admin/agreements")}
+              style={{cursor: "pointer"}}
+            >
               <div className="admin-func-icon agreements">
                 <span>📄</span>
               </div>

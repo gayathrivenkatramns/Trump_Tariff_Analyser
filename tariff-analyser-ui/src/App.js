@@ -8,11 +8,13 @@ import Signup from "./components/Signup";
 import UserDashboard from "./components/UserDashboard";
 import AdminDashboardPage from "./components/AdminDashboardPage";
 import ProductLibraryPage from "./components/ProductLibraryPage";
+import AgreementManagementPage from "./components/AgreementsManagementPage";  // <-- ADDED
+
 import "./App.css";
 
 function AuthShell() {
-  const [mode, setMode] = useState("auth"); // 'auth' | 'signup'
-  const [activeTab, setActiveTab] = useState("admin"); // 'admin' | 'user'
+  const [mode, setMode] = useState("auth");
+  const [activeTab, setActiveTab] = useState("admin");
   const navigate = useNavigate();
 
   const handleSignupSuccess = (role) => {
@@ -21,12 +23,10 @@ function AuthShell() {
   };
 
   const handleUserLoginSuccess = () => {
-    // after successful user login go to /user
     navigate("/user");
   };
 
   const handleAdminLoginSuccess = () => {
-    // after successful admin login go to /admin
     navigate("/admin");
   };
 
@@ -34,9 +34,7 @@ function AuthShell() {
     <div className="app">
       <div className="card">
         <div className="logo">TI</div>
-        <h2>
-          {mode === "auth" ? "Welcome to TariffIntel" : "Create Account"}
-        </h2>
+        <h2>{mode === "auth" ? "Welcome to TariffIntel" : "Create Account"}</h2>
         <p className="subtitle">
           {mode === "auth"
             ? "Smart Intelligence for Global Tariffs"
@@ -67,7 +65,7 @@ function AuthShell() {
             )}
 
             <div className="footer-link">
-              Don&apos;t have an account?{" "}
+              Don't have an account?{" "}
               <span onClick={() => setMode("signup")}>Sign Up</span>
             </div>
           </>
@@ -94,16 +92,19 @@ function App() {
         {/* login + signup shell */}
         <Route path="/" element={<AuthShell />} />
 
-        {/* user dashboard after login */}
+        {/* user dashboard */}
         <Route path="/user" element={<UserDashboard />} />
 
-        {/* admin dashboard after login */}
+        {/* admin dashboard */}
         <Route path="/admin" element={<AdminDashboardPage />} />
 
-        {/* product library page, opened from admin (navigate('/admin/products')) */}
+        {/* product library */}
         <Route path="/admin/products" element={<ProductLibraryPage />} />
 
-        {/* fallback → auth */}
+        {/* agreement management page */}
+        <Route path="/admin/agreements" element={<AgreementManagementPage />} />
+
+        {/* fallback */}
         <Route path="*" element={<AuthShell />} />
       </Routes>
     </BrowserRouter>

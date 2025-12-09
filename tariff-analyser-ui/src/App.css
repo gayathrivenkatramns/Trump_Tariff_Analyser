@@ -6,7 +6,8 @@
   justify-content: center;
   align-items: center;
   background: #f5f7fb;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
 }
 
 .card {
@@ -121,11 +122,9 @@
   cursor: pointer;
 }
 
-/* ---------- Dashboard layout ---------- */
+/* ---------- User Dashboard layout ---------- */
 
-/* ---------------------- */
-/* LAYOUT STRUCTURE */
-/* ---------------------- */
+/* layout */
 
 .layout {
   display: flex;
@@ -134,9 +133,7 @@
   font-family: "Inter", sans-serif;
 }
 
-/* ---------------------- */
-/* SIDEBAR */
-/* ---------------------- */
+/* sidebar */
 
 .sidebar {
   width: 250px;
@@ -213,9 +210,7 @@
   cursor: pointer;
 }
 
-/* ---------------------- */
-/* MAIN AREA */
-/* ---------------------- */
+/* main */
 
 .main {
   flex: 1;
@@ -230,16 +225,14 @@
   color: #1e293b;
 }
 
-/* ---------------------- */
-/* WELCOME STRIP */
-/* ---------------------- */
+/* welcome strip */
 
 .welcome-strip {
   background: #2563eb;
   color: white;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .welcome-strip h2 {
@@ -252,9 +245,7 @@
   opacity: 0.9;
 }
 
-/* ---------------------- */
-/* QUICK ACTIONS */
-/* ---------------------- */
+/* quick actions */
 
 .qa-section {
   margin-top: 40px;
@@ -279,7 +270,7 @@
   display: flex;
   gap: 14px;
   align-items: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   cursor: pointer;
   transition: 0.2s;
 }
@@ -299,10 +290,18 @@
   font-size: 20px;
 }
 
-.qa-blue { background: #2563eb; }
-.qa-indigo { background: #4b4cda; }
-.qa-green { background: #22c55e; }
-.qa-purple { background: #7c3aed; }
+.qa-blue {
+  background: #2563eb;
+}
+.qa-indigo {
+  background: #4b4cda;
+}
+.qa-green {
+  background: #22c55e;
+}
+.qa-purple {
+  background: #7c3aed;
+}
 
 .qa-text h4 {
   margin: 0;
@@ -315,9 +314,7 @@
   color: #555;
 }
 
-/* ---------------------- */
-/* DASHBOARD ROW */
-/* ---------------------- */
+/* dashboard row */
 
 .dash-row {
   display: grid;
@@ -330,7 +327,7 @@
   background: white;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .recent-list {
@@ -376,9 +373,7 @@
   cursor: pointer;
 }
 
-/* ---------------------- */
-/* INSIGHTS */
-/* ---------------------- */
+/* insights */
 
 .insight-line {
   padding: 12px 14px;
@@ -401,19 +396,23 @@
   background: #ffeaea;
   color: #b80000;
 }
-/* Layout */
+
+/* ---------- Global + Admin Dashboard ---------- */
+
 :root {
   --system-ui: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-/* Global font to match user dashboard */
+/* Global font */
 body {
+  margin: 0;
   font-family: var(--system-ui);
 }
 
-/* ===== Layout ===== */
+/* ===== Admin layout ===== */
+
 .admin-layout {
   display: flex;
   min-height: 100vh;
@@ -421,17 +420,18 @@ body {
   font-family: var(--system-ui);
 }
 
-/* ===== Sidebar ===== */
+/* Sidebar for admin */
+
 .sidebar.admin-sidebar {
   width: 240px;
-  background-color: white;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #111827;            /* FIX: dark text so it is visible */
   display: flex;
   flex-direction: column;
   padding: 20px 14px;
 }
 
-.sidebar-header {
+.sidebar.admin-sidebar .sidebar-header {
   display: flex;
   align-items: center;
   margin-bottom: 28px;
@@ -454,7 +454,7 @@ body {
   margin-left: 10px;
   font-size: 18px;
   font-weight: 600;
-  color:#1e293b
+  color: #1e293b;
 }
 
 .sidebar-nav {
@@ -465,6 +465,7 @@ body {
 }
 
 /* nav buttons with icons */
+
 .nav-item {
   display: flex;
   align-items: center;
@@ -475,7 +476,7 @@ body {
   margin: 2px 0;
   border-radius: 8px;
   background: transparent;
-  color: black;
+  color: #111827;
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.15s ease, color 0.15s ease;
@@ -506,10 +507,11 @@ body {
 .nav-item.logout {
   margin-top: 16px;
   background: rgba(248, 113, 113, 0.12);
-  color:black;
+  color: #b91c1c;
 }
 
-/* ===== Main content ===== */
+/* Main admin content */
+
 .admin-main {
   flex: 1;
   padding: 24px 32px 32px;
@@ -518,6 +520,7 @@ body {
 }
 
 /* Blue hero bar */
+
 .admin-hero {
   background: linear-gradient(90deg, #1d4ed8, #2563eb);
   color: #ffffff;
@@ -538,7 +541,8 @@ body {
   opacity: 0.9;
 }
 
-/* ===== KPI cards row ===== */
+/* KPI row */
+
 .admin-kpi-row {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -571,7 +575,8 @@ body {
   color: #10b981;
 }
 
-/* ===== Admin functions ===== */
+/* Admin functions */
+
 .admin-section {
   margin-bottom: 24px;
 }
@@ -652,7 +657,8 @@ body {
   color: #4b5563;
 }
 
-/* ===== System activity panel ===== */
+/* System activity panel */
+
 .admin-panel {
   background: #ffffff;
   border-radius: 10px;
@@ -687,7 +693,8 @@ body {
   color: #6b7280;
 }
 
-/* Centered helper for error/loading */
+/* Centered helper */
+
 .page-center {
   min-height: 100vh;
   display: flex;
@@ -695,9 +702,9 @@ body {
   justify-content: center;
   font-size: 16px;
 }
-/* System activity panel is already styled by .admin-panel etc. */
 
-/* Recent activity list */
+/* Recent activity */
+
 .admin-recent-panel {
   margin-top: 16px;
 }
@@ -733,7 +740,6 @@ body {
   color: #fff;
 }
 
-/* different colors per type */
 .admin-activity-icon.user {
   background-color: #2563eb;
 }
@@ -1021,6 +1027,73 @@ body {
 }
 
 .impact-metrics {
+
+/* ---------- Product Library layout ---------- */
+
+.dashboard {
+  min-height: 100vh;
+  display: flex;
+  background: #f5f7fb;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+/* reuse .sidebar, but with product-specific brand */
+
+.sidebar .sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  padding: 0 4px;
+}
+
+.sidebar-logo-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: #1d4ed8;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.sidebar-brand-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-item-icon {
+  width: 20px;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.sidebar-item-label {
+  flex: 1;
+}
+
+/* active item */
+
+.sidebar-item.active {
+  background: #1d4ed8;
+  color: #ffffff;
+}
+
+/* product main */
+
+.dashboard .main {
+  flex: 1;
+  padding: 24px 32px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -1046,6 +1119,23 @@ body {
 
 .metric-value {
   font-size: 14px;
+/* topbar */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.topbar-breadcrumb {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.topbar-title {
+  margin: 0;
+  font-size: 22px;
   font-weight: 600;
   color: #111827;
 }

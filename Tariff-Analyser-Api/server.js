@@ -7,18 +7,35 @@ const userRoutes = require('./routes/userRoutes');              // user login/re
 const authRoutes = require('./routes/authRoutes');              // shared login if needed
 const forexRoutes = require('./routes/forexRoutes');            // forex APIs
 const userManagementRoutes = require('./routes/userManagementRoutes'); // /users CRUD
+const dotenv = require('dotenv');
+const { sequelize } = require('./models');
 
-require('dotenv').config();
+const adminRoutes = require('./routes/adminRoutes');
+const userRoutes = require('./routes/userRoutes');
+const authRoutes = require('./routes/authRoutes');
+const productRoutes = require('./routes/productRoutes');
+const agreementRoutes = require('./routes/agreementRoutes');  // <-- NEW
+
+dotenv.config();
 
 const app = express();
 
-// Global middleware
+// ---------- Global middleware ----------
 app.use(cors());
 app.use(express.json());
 
 // Health check
 app.get('/', (req, res) => {
-  res.json({ message: 'Tariff-Analyser API is running' });
+  res.json({
+    message: 'Tariff-Analyser API is running',
+    endpoints: {
+      admin: '/api/admin',
+      user: '/api/user',
+      auth: '/api/auth',
+      products: '/api/products',
+      agreements: '/api/agreements'       // <-- NEW
+    }
+  });
 });
 
 // Debug: Check if User model is loaded
@@ -40,10 +57,19 @@ app.use('/api/forex', forexRoutes);
 // Inside userManagementRoutes you should define paths like:
 // router.get('/users', ...), router.post('/users', ...), etc.[web:96][web:99]
 app.use('/api/admin', userManagementRoutes);
+// Mount ALL APIs
+app.use('/api/admin', adminRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/agreements', agreementRoutes);  // <-- NEW
 
+// User Management (User_role table) used by your React User Management page
+
+
+// ---------- Start server ----------
 const PORT = process.env.PORT || 5000;
 
-// Sync DB and start server
 sequelize
   .sync()
   .then(() => {

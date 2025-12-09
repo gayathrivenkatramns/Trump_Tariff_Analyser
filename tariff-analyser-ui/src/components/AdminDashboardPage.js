@@ -21,10 +21,10 @@ function AdminDashboardPage() {
 
   const handleLogout = () => {
     localStorage.removeItem("adminToken");
-    navigate("/login");
+    navigate("/"); // back to login shell
   };
 
-  // Mock numbers – later you can replace with real API data
+  // Mock numbers – later replace with real API data
   const totalUsers = 1247;
   const activeSessions = 178;
   const totalQueries = 45892;
@@ -95,7 +95,11 @@ function AdminDashboardPage() {
             </button>
           ))}
 
-          <button className="nav-item logout" onClick={handleLogout}>
+          <button
+            className="nav-item logout"
+            type="button"
+            onClick={handleLogout}
+          >
             <span className="nav-icon">
               <FiLogOut />
             </span>

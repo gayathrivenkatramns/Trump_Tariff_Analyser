@@ -166,89 +166,95 @@ function ProductLibraryPage() {
   };
 
   return (
-    <div className="admin-layout">
-      {/* Sidebar */}
-      <aside className="sidebar admin-sidebar">
-        <div className="sidebar-header">
-          <div className="sidebar-logo-circle">TI</div>
-          <div className="sidebar-title">TariffIntel</div>
-        </div>
-
-        <nav className="sidebar-nav">
-          <button
-            className="nav-item"
-            type="button"
-            onClick={() => navigate("/admin")}
-          >
-            <span className="nav-icon">
-              <FiPieChart />
-            </span>
-            <span className="nav-label">Admin Dashboard</span>
-          </button>
-
-          <button className="nav-item" type="button">
-            <span className="nav-icon">
-              <FiUsers />
-            </span>
-            <span className="nav-label">User Management</span>
-          </button>
-
-          <button className="nav-item" type="button">
-            <span className="nav-icon">
-              <FiFileText />
-            </span>
-            <span className="nav-label">Agreements Management</span>
-          </button>
-
-          <button className="nav-item" type="button">
-            <span className="nav-icon">
-              <FiGlobe />
-            </span>
-            <span className="nav-label">Country Database</span>
-          </button>
-
-          {/* Active section */}
-          <button className="nav-item active" type="button">
-            <span className="nav-icon">
-              <FiBox />
-            </span>
-            <span className="nav-label">Product Library</span>
-          </button>
-
-          <button className="nav-item" type="button">
-            <span className="nav-icon">
-              <FiBarChart2 />
-            </span>
-            <span className="nav-label">Reports</span>
-          </button>
-
-          <button className="nav-item" type="button">
-            <span className="nav-icon">
-              <FiBell />
-            </span>
-            <span className="nav-label">News Feed Manager</span>
-          </button>
-
-          <button className="nav-item" type="button">
-            <span className="nav-icon">
-              <FiMessageSquare />
-            </span>
-            <span className="nav-label">Feedback Inbox</span>
-          </button>
-
-          <button
-            className="nav-item logout"
-            type="button"
-            onClick={handleLogout}
-          >
-            <span className="nav-icon">
-              <FiLogOut />
-            </span>
-            <span className="nav-label">Logout</span>
-          </button>
-        </nav>
-      </aside>
-
+     <div className="admin-layout">
+          {/* Sidebar – copied from AdminDashboardPage, with Agreements active */}
+          <aside className="sidebar admin-sidebar">
+            <div className="sidebar-header">
+              <div className="sidebar-logo-circle">TI</div>
+              <div className="sidebar-title">TariffIntel</div>
+            </div>
+    
+            <nav className="sidebar-nav">
+              <button
+                className="nav-item"
+                type="button"
+                onClick={() => navigate("/admin")}
+              >
+                <span className="nav-icon">
+                  <FiPieChart />
+                </span>
+                <span className="nav-label">Admin Dashboard</span>
+              </button>
+    
+              <button className="nav-item" type="button">
+                <span className="nav-icon">
+                  <FiUsers />
+                </span>
+                <span className="nav-label">User Management</span>
+              </button>
+    
+              <button
+                className="nav-item"
+                type="button"
+              >
+                <span className="nav-icon">
+                  <FiFileText />
+                </span>
+                <span className="nav-label">Agreements Management</span>
+              </button>
+    
+              <button className="nav-item" type="button">
+                <span className="nav-icon">
+                  <FiGlobe />
+                </span>
+                <span className="nav-label">Country Database</span>
+              </button>
+    
+              <button
+                className="nav-item active"
+                type="button"
+                onClick={() => navigate("/admin/products")}
+              >
+                <span className="nav-icon">
+                  <FiBox />
+                </span>
+                <span className="nav-label">Product Library</span>
+              </button>
+    
+              <button className="nav-item" type="button">
+                <span className="nav-icon">
+                  <FiBarChart2 />
+                </span>
+                <span className="nav-label">Reports</span>
+              </button>
+    
+              <button className="nav-item" type="button">
+                <span className="nav-icon">
+                  <FiBell />
+                </span>
+                <span className="nav-label">News Feed Manager</span>
+              </button>
+    
+              <button className="nav-item" type="button">
+                <span className="nav-icon">
+                  <FiMessageSquare />
+                </span>
+                <span className="nav-label">Feedback Inbox</span>
+              </button>
+    
+              <button
+                className="nav-item logout"
+                type="button"
+                onClick={handleLogout}
+              >
+                <span className="nav-icon">
+                  <FiLogOut />
+                </span>
+                <span className="nav-label">Logout</span>
+              </button>
+            </nav>
+          </aside>
+  
       {/* Main content */}
       <main className="admin-main">
         <div className="admin-main-inner">

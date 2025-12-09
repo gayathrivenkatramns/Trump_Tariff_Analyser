@@ -1,8 +1,9 @@
+// src/components/UserLogin.js
 import React, { useState } from 'react';
-import API from '../api'; // <- make sure the file is src/api.js (lowercase)
+import API from '../api';
 
 const UserLogin = ({ onLoginSuccess }) => {
-  const [username, setUsername] = useState(''); // not sent, only for UI
+  const [username, setUsername] = useState(''); // UI only
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -10,13 +11,16 @@ const UserLogin = ({ onLoginSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
     try {
-      const res = await API.post('/user/login', {
+      // Use shared auth login so lastLogin is updated in Users table
+      const res = await API.post('/auth/login', {
         email,
         password,
       });
+
       localStorage.setItem('userToken', res.data.token);
-      if (onLoginSuccess) onLoginSuccess();
+      if (onLoginSuccess) onLoginSuccess(res.data.user);
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed');
     }

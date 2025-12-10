@@ -1088,11 +1088,67 @@ body {
   color: #374151;
 }
 
-/* ===== Right: Impact Container ===== */
-
 .impact-container {
   display: flex;
   flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;     /* light gray border */
+  border-radius: 10px;
+  padding: 16px 20px 18px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+}
+
+.impact-container h2 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 14px;
+}
+
+/* Stack of rows */
+.impact-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Single row */
+.impact-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 12px;
+  background: #f9fafb;
+  border-radius: 6px;
+}
+
+/* Left label */
+.impact-row label {
+  font-size: 13px;
+  color: #4b5563;
+}
+
+/* Right metric value */
+.metric-value {
+  font-size: 13px;
+  font-weight: 500;
+  color: #111827;
+}
+
+/* Status colors */
+.text-green {
+  color: #16a34a;
+}
+
+.text-orange {
+  color: #ea580c;
+}
+
+/* Responsive: stack columns on small screens */
+@media (max-width: 900px) {
+  .insights-impact-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ---------- Product Library layout ---------- */

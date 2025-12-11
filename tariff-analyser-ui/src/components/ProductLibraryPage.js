@@ -324,7 +324,7 @@ function ProductLibraryPage() {
                             onClick={() => openEdit(p)}
                             aria-label="Edit product"
                           >
-                            ✎
+                            ✏️
                           </button>
                           <button
                             className="icon-button delete-icon"

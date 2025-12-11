@@ -7,7 +7,8 @@ import Signup from "./components/Signup";
 import UserDashboard from "./components/UserDashboard";
 import AdminDashboardPage from "./components/AdminDashboardPage";
 import ProductLibraryPage from "./components/ProductLibraryPage";
-import AgreementManagementPage from "./components/AgreementsManagementPage";  // <-- ADDED
+import AgreementManagementPage from "./components/AgreementsManagementPage";
+import CountryTable from "./components/CountryTable"; 
 
 import "./App.css";
 
@@ -99,6 +100,9 @@ function App() {
 
         {/* product library */}
         <Route path="/admin/products" element={<ProductLibraryPage />} />
+
+        {/* country & tariff database */}
+        <Route path="/admin/countries" element={<CountryTable />} /> 
 
         {/* agreement management page */}
         <Route path="/admin/agreements" element={<AgreementManagementPage />} />

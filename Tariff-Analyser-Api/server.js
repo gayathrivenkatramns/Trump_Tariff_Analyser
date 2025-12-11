@@ -1,22 +1,24 @@
 // server.js
 const express = require('express');
 const cors = require('cors');
-const { sequelize, User } = require('./models');
-const adminRoutes = require('./routes/adminRoutes');            // admin login/register
-const userRoutes = require('./routes/userRoutes');              // user login/register
-const authRoutes = require('./routes/authRoutes');              // shared login if needed
-const forexRoutes = require('./routes/forexRoutes');            // forex APIs
-const userManagementRoutes = require('./routes/userManagementRoutes'); // /users CRUD
 const dotenv = require('dotenv');
-const { sequelize } = require('./models');
-
-const adminRoutes = require('./routes/adminRoutes');
-const userRoutes = require('./routes/userRoutes');
-const authRoutes = require('./routes/authRoutes');
-const productRoutes = require('./routes/productRoutes');
-const agreementRoutes = require('./routes/agreementRoutes');  // <-- NEW
 
 dotenv.config();
+
+// Sequelize models
+const { sequelize, User, Country } = require('./models');
+
+// Existing routes
+const adminRoutes = require('./routes/adminRoutes');                 // admin login/register
+const userRoutes = require('./routes/userRoutes');                   // user login/register
+const authRoutes = require('./routes/authRoutes');                   // shared login if needed
+const forexRoutes = require('./routes/forexRoutes');                 // forex APIs
+const userManagementRoutes = require('./routes/userManagementRoutes'); // /users CRUD
+const productRoutes = require('./routes/productRoutes');
+const agreementRoutes = require('./routes/agreementRoutes');         // agreements
+
+// NEW: Country routes
+const countryRoutes = require('./routes/countryRoutes');
 
 const app = express();
 
@@ -32,52 +34,49 @@ app.get('/', (req, res) => {
       admin: '/api/admin',
       user: '/api/user',
       auth: '/api/auth',
+      forex: '/api/forex',
       products: '/api/products',
-      agreements: '/api/agreements'       // <-- NEW
-    }
+      agreements: '/api/agreements',
+      countries: '/api/countries',
+    },
   });
 });
 
-// Debug: Check if User model is loaded
+// Debug: Check if models are loaded
 app.get('/api/debug', (req, res) => {
   res.json({
     userModelLoaded: !!User,
+    countryModelLoaded: !!Country,
     sequelizeConnected: !!sequelize,
     message: 'Debug info',
   });
 });
 
-// Mount APIs
-app.use('/api/admin', adminRoutes);          // e.g. POST /api/admin/login (old admin)
-app.use('/api/user', userRoutes);            // e.g. POST /api/user/login (old user)
-app.use('/api/auth', authRoutes);            // POST /api/auth/login (new shared login)
-app.use('/api/forex', forexRoutes);
-
-// IMPORTANT: base path must be /api/admin, not /api/admin/users
-// Inside userManagementRoutes you should define paths like:
-// router.get('/users', ...), router.post('/users', ...), etc.[web:96][web:99]
-app.use('/api/admin', userManagementRoutes);
-// Mount ALL APIs
+// ---------- Mount APIs ----------
 app.use('/api/admin', adminRoutes);
+app.use('/api/admin', userManagementRoutes);
+
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/forex', forexRoutes);
 app.use('/api/products', productRoutes);
-app.use('/api/agreements', agreementRoutes);  // <-- NEW
+app.use('/api/agreements', agreementRoutes);
 
-// User Management (User_role table) used by your React User Management page
+// NEW: Countries API (list, filter, search)
+app.use('/api/countries', countryRoutes);
 
-
-// ---------- Start server ----------
 const PORT = process.env.PORT || 5000;
 
+// ---------- Start server ----------
 sequelize
-  .sync()
+  .sync() // or .sync({ alter: true }) only in dev if you want auto‑altering
   .then(() => {
     console.log('✓ DB synced');
     console.log('✓ User model loaded:', !!User);
+    console.log('✓ Country model loaded:', !!Country);
     app.listen(PORT, () => {
       console.log(`✓ Server running on port ${PORT}`);
-      console.log(`✓ Try: http://localhost:${PORT}/api/admin/users`);
+      console.log(`✓ Try: http://localhost:${PORT}/api/countries`);
     });
   })
   .catch((err) => {

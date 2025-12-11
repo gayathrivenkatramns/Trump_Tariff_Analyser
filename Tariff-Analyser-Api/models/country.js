@@ -1,45 +1,31 @@
-// models/country.js
+'use strict';
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  const Country = sequelize.define('Country', {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    country_name: {
-      type: DataTypes.STRING(100),
-      allowNull: false,
-    },
-    iso_code: {
-      type: DataTypes.STRING(2),
-      allowNull: false,
-      unique: true,
-    },
-    currency: {
-      type: DataTypes.STRING(3),
-      allowNull: false,
-    },
-    region: {
-      type: DataTypes.STRING(50),
-      allowNull: false,
-    },
-    column2_status: {
-      type: DataTypes.ENUM('Applied', 'Not Applied'),
-      defaultValue: 'Not Applied',
-    },
-    fta_eligibility: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
-    tariff_data_status: {
-      type: DataTypes.ENUM('Complete', 'Incomplete'),
-      defaultValue: 'Incomplete',
-    },
+  class Country extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+    }
+  }
+  Country.init({
+    country_name: DataTypes.STRING,
+    iso_code: DataTypes.STRING,
+    currency: DataTypes.STRING,
+    region: DataTypes.STRING,
+    status: DataTypes.STRING,
+    eligibility_criteria: DataTypes.STRING,
+    tariff_data_status: DataTypes.STRING,
+    created_at: DataTypes.DATE,
+    updated_at: DataTypes.DATE
   }, {
-    tableName: 'countries',
-    underscored: true,   // so created_at/updated_at match
-    timestamps: true,
+    sequelize,
+    modelName: 'Country',
   });
-
   return Country;
 };

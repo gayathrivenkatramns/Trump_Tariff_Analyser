@@ -3,17 +3,22 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
-const { sequelize, User } = require('./models');
+dotenv.config();
 
-const adminRoutes = require('./routes/adminRoutes');             // admin login/register
-const userRoutes = require('./routes/userRoutes');               // user login/register
-const authRoutes = require('./routes/authRoutes');               // shared login if needed
-const forexRoutes = require('./routes/forexRoutes');             // forex APIs
+// Sequelize models
+const { sequelize, User, Country } = require('./models');
+
+// Existing routes
+const adminRoutes = require('./routes/adminRoutes');                 // admin login/register
+const userRoutes = require('./routes/userRoutes');                   // user login/register
+const authRoutes = require('./routes/authRoutes');                   // shared login if needed
+const forexRoutes = require('./routes/forexRoutes');                 // forex APIs
 const userManagementRoutes = require('./routes/userManagementRoutes'); // /users CRUD
 const productRoutes = require('./routes/productRoutes');
-const agreementRoutes = require('./routes/agreementRoutes');     // NEW
+const agreementRoutes = require('./routes/agreementRoutes');         // agreements
 
-dotenv.config();
+// NEW: Country routes
+const countryRoutes = require('./routes/countryRoutes');
 
 const app = express();
 
@@ -29,24 +34,25 @@ app.get('/', (req, res) => {
       admin: '/api/admin',
       user: '/api/user',
       auth: '/api/auth',
+      forex: '/api/forex',
       products: '/api/products',
       agreements: '/api/agreements',
+      countries: '/api/countries',
     },
   });
 });
 
-// Debug: Check if User model is loaded
+// Debug: Check if models are loaded
 app.get('/api/debug', (req, res) => {
   res.json({
     userModelLoaded: !!User,
+    countryModelLoaded: !!Country,
     sequelizeConnected: !!sequelize,
     message: 'Debug info',
   });
 });
 
 // ---------- Mount APIs ----------
-// IMPORTANT: base path must be /api/admin, not /api/admin/users
-// Inside userManagementRoutes define paths like router.get('/users', ...), etc.
 app.use('/api/admin', adminRoutes);
 app.use('/api/admin', userManagementRoutes);
 
@@ -56,17 +62,21 @@ app.use('/api/forex', forexRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/agreements', agreementRoutes);
 
-// ---------- Start server ----------
+// NEW: Countries API (list, filter, search)
+app.use('/api/countries', countryRoutes);
+
 const PORT = process.env.PORT || 5000;
 
+// ---------- Start server ----------
 sequelize
-  .sync()
+  .sync() // or .sync({ alter: true }) only in dev if you want auto‑altering
   .then(() => {
     console.log('✓ DB synced');
     console.log('✓ User model loaded:', !!User);
+    console.log('✓ Country model loaded:', !!Country);
     app.listen(PORT, () => {
       console.log(`✓ Server running on port ${PORT}`);
-      console.log(`✓ Try: http://localhost:${PORT}/api/admin/users`);
+      console.log(`✓ Try: http://localhost:${PORT}/api/countries`);
     });
   })
   .catch((err) => {

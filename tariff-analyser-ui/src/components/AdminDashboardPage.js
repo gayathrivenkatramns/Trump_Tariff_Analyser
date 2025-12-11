@@ -1,6 +1,7 @@
 // src/components/AdminDashboardPage.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import {
   FiPieChart,
   FiUsers,
@@ -13,6 +14,7 @@ import {
   FiLogOut,
 } from "react-icons/fi";
 import UserManagement from "./UserManagement";
+import CountryTable from "./CountryTable"; // use this
 import "../App.css";
 
 function AdminDashboardPage() {
@@ -142,7 +144,7 @@ function AdminDashboardPage() {
               </div>
             </section>
 
-                        {/* Admin functions cards */}
+            {/* Admin functions cards */}
             <section className="admin-section">
               <div className="admin-section-header">
                 <h2>Admin Functions</h2>
@@ -165,7 +167,7 @@ function AdminDashboardPage() {
                   </div>
                 </div>
 
-                {/* Agreements Management card – navigates to /admin/agreements */}
+                {/* Agreements Management card */}
                 <div
                   className="admin-function-card"
                   onClick={() => navigate("/admin/agreements")}
@@ -197,7 +199,7 @@ function AdminDashboardPage() {
                   </div>
                 </div>
 
-                {/* Product Library card – navigates to /admin/products */}
+                {/* Product Library card */}
                 <div
                   className="admin-function-card"
                   onClick={() => navigate("/admin/products")}
@@ -278,7 +280,7 @@ function AdminDashboardPage() {
                     <div className="admin-activity-title">
                       New user registered: john@example.com
                     </div>
-                                        <div className="admin-activity-time">5 minutes ago</div>
+                    <div className="admin-activity-time">5 minutes ago</div>
                   </div>
                 </li>
 
@@ -326,14 +328,10 @@ function AdminDashboardPage() {
           </>
         )}
 
-        {/* Placeholder Pages for internal tabs */}
-        {currentPage === "countries" && (
-          <section className="admin-hero">
-            <h1>Country Database</h1>
-            <p>Coming soon...</p>
-          </section>
-        )}
+        {/* Country Database full page */}
+        {currentPage === "countries" && <CountryTable />}
 
+        {/* Placeholder Pages for other internal tabs */}
         {currentPage === "reports" && (
           <section className="admin-hero">
             <h1>Reports</h1>
@@ -360,5 +358,3 @@ function AdminDashboardPage() {
 }
 
 export default AdminDashboardPage;
-
-

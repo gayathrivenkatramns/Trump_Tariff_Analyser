@@ -19,6 +19,7 @@ const agreementRoutes = require('./routes/agreementRoutes');         // agreemen
 
 // NEW: Country routes
 const countryRoutes = require('./routes/countryRoutes');
+const industryRoutes = require('./routes/industryRoutes'); //industry routes
 
 const app = express();
 
@@ -64,6 +65,7 @@ app.use('/api/agreements', agreementRoutes);
 
 // NEW: Countries API (list, filter, search)
 app.use('/api/countries', countryRoutes);
+app.use('/api', industryRoutes);  // Mount industry routes
 
 const PORT = process.env.PORT || 5000;
 

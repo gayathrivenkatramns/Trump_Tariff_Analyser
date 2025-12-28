@@ -13,7 +13,8 @@ import {
   FiTrendingUp,
 } from "react-icons/fi";
 import "../App.css";
-import ForexAnalysis from "./ForexAnalysis"; // <- new import
+import ForexAnalysis from "./ForexAnalysis";
+import IndustryExplorerPage from "./IndustryExplorerPage";   // <- NEW IMPORT
 
 const menuItems = [
   { id: "dashboard", label: "Dashboard", icon: <FiHome /> },
@@ -37,6 +38,11 @@ const UserDashboard = () => {
   };
 
   const renderContent = () => {
+    // Dedicated page for Industry Explorer
+    if (active === "industry") {
+      return <IndustryExplorerPage />;
+    }
+
     // Dedicated page for Forex Analysis
     if (active === "forex") {
       return <ForexAnalysis />;

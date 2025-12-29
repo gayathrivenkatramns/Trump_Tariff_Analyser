@@ -15,6 +15,7 @@ import {
 import "../App.css";
 import ForexAnalysis from "./ForexAnalysis";
 import TariffImpactAnalysis from "./TariffImpactAnalysis";
+import IndustryExplorerPage from "./IndustryExplorerPage";   // <- NEW IMPORT
 
 const menuItems = [
   { id: "dashboard", label: "Dashboard", icon: <FiHome /> },
@@ -44,6 +45,12 @@ const UserDashboard = () => {
     }
 
     // Forex Analysis page
+    // Dedicated page for Industry Explorer
+    if (active === "industry") {
+      return <IndustryExplorerPage />;
+    }
+
+    // Dedicated page for Forex Analysis
     if (active === "forex") {
       return <ForexAnalysis />;
     }

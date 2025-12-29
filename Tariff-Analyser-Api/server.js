@@ -19,6 +19,7 @@ const agreementRoutes = require('./routes/agreementRoutes');         // agreemen
 
 // Country routes
 const countryRoutes = require('./routes/countryRoutes');
+const industryRoutes = require('./routes/industryRoutes'); //industry routes
 
 // Impact Analysis (Excel + charts)
 const impactAnalysisRoutes = require('./routes/impact_analysis.routes');
@@ -68,6 +69,7 @@ app.use('/api/agreements', agreementRoutes);
 
 // Countries API
 app.use('/api/countries', countryRoutes);
+app.use('/api', industryRoutes);  // Mount industry routes
 
 // Impact Analysis Excel + chart API
 app.use('/api/impact-analysis', impactAnalysisRoutes);

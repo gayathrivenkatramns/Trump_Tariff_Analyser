@@ -1941,3 +1941,187 @@ body {
   padding: 24px 32px;
 }
 
+/* ===== Tariff Impact Analysis (User Dashboard) ===== */
+
+.tia-page {
+  padding: 16px 4px 32px;
+}
+
+.tia-header {
+  margin-bottom: 12px;
+}
+
+.tia-main-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: #111827;
+}
+
+/* card wrapper reuses existing .panel style look */
+.tia-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 18px 20px;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+  margin-bottom: 18px;
+}
+
+/* filters layout: 3 per row like figma */
+.tia-card-filters {
+  margin-bottom: 18px;
+}
+
+.tia-filters-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 28px;
+  row-gap: 14px;
+}
+
+@media (max-width: 1024px) {
+  .tia-filters-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .tia-filters-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.tia-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.tia-field label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #4b5563;
+  margin-bottom: 4px;
+}
+
+.tia-field select,
+.tia-field input {
+  padding: 7px 9px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  font-size: 13px;
+  background: #ffffff;
+}
+
+.tia-field select:focus,
+.tia-field input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.12);
+}
+
+/* actions row */
+.tia-actions-row {
+  margin-top: 16px;
+  display: flex;
+  gap: 12px;
+}
+
+/* use existing primary-button + ghost-button classes */
+
+/* impact configuration */
+.tia-impact-card {
+  margin-bottom: 18px;
+}
+
+.tia-impact-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tia-impact-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.tia-impact-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tia-impact-label {
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.tia-toggle-chip {
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.tia-toggle-active {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+}
+
+.tia-status-text {
+  font-size: 13px;
+  margin-top: 8px;
+  color: #6b7280;
+}
+
+.tia-error-text {
+  color: #dc2626;
+}
+
+/* charts */
+.tia-section-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 10px;
+  color: #111827;
+}
+
+.tia-chart-wrapper {
+  background: #f9fafb;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+/* bottom charts row */
+.tia-bottom-grid {
+  display: grid;
+  grid-template-columns: 1.7fr 1.3fr;
+  gap: 20px;
+}
+
+@media (max-width: 960px) {
+  .tia-bottom-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.tia-summary-list {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0;
+}
+
+.tia-summary-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #eef2f7;
+  font-size: 14px;
+}
+
+.tia-summary-total {
+  font-weight: 700;
+}

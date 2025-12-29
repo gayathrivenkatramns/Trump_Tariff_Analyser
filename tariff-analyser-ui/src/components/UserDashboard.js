@@ -13,7 +13,9 @@ import {
   FiTrendingUp,
 } from "react-icons/fi";
 import "../App.css";
-import ForexAnalysis from "./ForexAnalysis"; // <- new import
+import ForexAnalysis from "./ForexAnalysis";
+import TariffImpactAnalysis from "./TariffImpactAnalysis";
+import IndustryExplorerPage from "./IndustryExplorerPage";   // <- NEW IMPORT
 
 const menuItems = [
   { id: "dashboard", label: "Dashboard", icon: <FiHome /> },
@@ -37,6 +39,17 @@ const UserDashboard = () => {
   };
 
   const renderContent = () => {
+    // Tariff Impact Analysis page
+    if (active === "tariff") {
+      return <TariffImpactAnalysis />;
+    }
+
+    // Forex Analysis page
+    // Dedicated page for Industry Explorer
+    if (active === "industry") {
+      return <IndustryExplorerPage />;
+    }
+
     // Dedicated page for Forex Analysis
     if (active === "forex") {
       return <ForexAnalysis />;
@@ -68,7 +81,7 @@ const UserDashboard = () => {
           <h3 className="section-title">Quick Actions</h3>
 
           <div className="qa-grid">
-            {/* Industry Explorer */}
+            {/* Industry Explorer (placeholder page for now) */}
             <div className="qa-card" onClick={() => setActive("industry")}>
               <div className="qa-icon qa-blue">
                 <FiLayers />

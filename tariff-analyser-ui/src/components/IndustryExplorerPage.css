@@ -1,0 +1,629 @@
+/* Page background & wrapper */
+.industry-page {
+  padding: 24px 12px;
+  background-color: #f5f7fb;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* FULL‑WIDTH wrapper instead of fixed 1180px */
+.industry-page .content-wrapper {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 24px; /* side margin so card doesn’t touch edges */
+}
+
+/* Card container */
+.industry-page .card {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px 24px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+  margin-bottom: 24px;
+}
+
+.industry-page .panel-card {
+  margin-bottom: 24px;
+}
+
+/* Headers and text */
+.industry-page .panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.industry-page .panel-header.no-bottom {
+  margin-bottom: 8px;
+}
+
+.industry-page .panel-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  color: #0f172a;
+}
+
+.industry-page .panel-subtitle {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.industry-page .card-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  color: #0f172a;
+}
+
+.industry-page .card-subtitle {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.industry-page .small-title {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.industry-page .empty-state {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+/* Buttons */
+.industry-page .btn {
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 13px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.industry-page .btn.primary {
+  background-color: #2563eb;
+  color: #ffffff;
+}
+
+.industry-page .btn.ghost {
+  background-color: #ffffff;
+  color: #111827;
+  border-color: #e5e7eb;
+  margin-right: 8px;
+}
+
+.industry-page .panel-actions {
+  display: flex;
+  align-items: center;
+}
+
+/* Control panel grid */
+.industry-page .panel-grid {
+  display: grid;
+  grid-template-columns: 1.8fr 1.1fr 1.8fr 1.6fr 1.6fr 1.6fr;
+  column-gap: 16px;
+}
+
+.industry-page .panel-field {
+  margin-top: 8px;
+}
+
+.industry-page .panel-field label {
+  font-size: 12px;
+  color: #6b7280;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.industry-page .panel-field select {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  font-size: 13px;
+  background-color: #ffffff;
+}
+
+/* react-select (rs_) */
+.industry-page .rs-select {
+  font-size: 13px;
+}
+
+.industry-page .rs__control {
+  min-height: 36px !important;
+  border-radius: 8px !important;
+  border-color: #e5e7eb !important;
+}
+
+.industry-page .rs__value-container {
+  padding: 0 8px !important;
+}
+
+.industry-page .rs__menu {
+  max-width: 260px;
+}
+
+/* Charts layout */
+
+/* Row 1: Tariff Trend (3) + Country Comparison (2) */
+.industry-page .charts-row {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 20px;
+  min-width: 0; /* important for Recharts in CSS grid */
+}
+
+/* Row 2 in Industry Distribution card: pie (1) + bar (1) */
+.industry-page .charts-row.wide {
+  grid-template-columns: 1fr 1fr;
+}
+
+/* Chart cards */
+.industry-page .chart-card {
+  height: 280px;
+  min-height: 280px;
+}
+
+.industry-page .chart-card.no-shadow {
+  box-shadow: none;
+  padding: 12px 0 0 0;
+}
+
+/* Inner chart body */
+.industry-page .chart-body {
+  height: 210px;
+  min-height: 210px;
+  padding: 8px 4px;
+}
+
+/* HTS section */
+.industry-page .hts-card {
+  margin-top: 4px;
+}
+
+/* -------- Figma-style HTS list -------- */
+
+.industry-page .hts-list-card {
+  padding-top: 16px;
+}
+
+.industry-page .hts-empty {
+  font-size: 13px;
+  color: #9ca3af;
+  padding: 12px 4px;
+}
+
+/* Container for all HTS items */
+.industry-page .hts-list {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Single HTS row card */
+.industry-page .hts-item {
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  padding: 16px 20px;
+  background: radial-gradient(circle at top left, #f9fafb 0, #ffffff 40%);
+}
+
+/* Top line: code + description */
+.industry-page .hts-main {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+
+.industry-page .hts-code {
+  font-weight: 700;
+  font-size: 16px;
+  color: #111827;
+  min-width: 96px;
+}
+
+.industry-page .hts-desc {
+  flex: 1;
+}
+
+.industry-page .hts-industry {
+  font-size: 14px;
+  color: #111827;
+}
+
+.industry-page .hts-sub {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* Bottom meta row */
+.industry-page .hts-meta {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px 32px;
+  margin-top: 4px;
+}
+
+.industry-page .meta-block {
+  font-size: 12px;
+}
+
+.industry-page .meta-label {
+  color: #00050e;
+  margin-right: 4px;
+}
+
+/* Brighter duty/year values */
+.industry-page .meta-value {
+  color: #111827;
+  font-weight: 500;
+}
+
+.industry-page .meta-value.highlight {
+  color: #42464f;          /* bright blue */
+  font-weight: 600;
+}
+
+/* Responsive behavior */
+@media (max-width: 900px) {
+  .industry-page .hts-meta {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .industry-page .hts-main {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .industry-page .hts-meta {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+/* Single full-width row (only Tariff Trend) */
+.industry-page .charts-row.single {
+  grid-template-columns: 1fr;
+}
+
+.industry-page .chart-card.tall {
+  height: 340px;
+  min-height: 320px;
+}
+.industry-page .chart-body.tall-body {
+  height: calc(100% - 70px);
+  min-height: 250px;
+}
+/* Horizontal decomposition tree */
+
+.decomp-tree.horizontal {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 12px;
+}
+
+.tree-horizontal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+/* root row: node + main connector */
+.tree-root-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.tree-line-horizontal-main {
+  height: 2px;
+  width: 180px;
+  background: #e5e7eb;
+}
+
+/* children row displayed horizontally */
+.tree-children-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  margin-left: 40px; /* pushes children slightly right from root */
+}
+
+.tree-horizontal-child-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+/* vertical branch down from main line to each child */
+.tree-line-vertical-branch {
+  width: 2px;
+  height: 18px;
+  background: #e5e7eb;
+}
+
+/* generic node styles reused */
+.tree-node {
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+  min-width: 190px;
+  text-align: center;
+}
+
+.tree-node-root {
+  background: #2563eb;
+  border-color: #1d4ed8;
+  color: #ffffff;
+}
+
+.tree-node-child {
+  background: #f9fafb;
+  border-color: #e5e7eb;
+  color: #111827;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease,
+    border-color 0.12s ease;
+}
+
+.tree-node-child:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(15, 23, 42, 0.12);
+  border-color: #93c5fd;
+}
+
+.tree-node-selected {
+  border-color: #f97316;
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.25);
+}
+
+.tree-node-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.tree-node-subtitle {
+  display: block;
+  font-size: 11px;
+  opacity: 0.9;
+}
+
+.empty-state.small {
+  font-size: 12px;
+}
+/* Horizontal decomposition tree layout */
+
+.decomp-tree.horizontal {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 12px;
+}
+
+.tree-horizontal-container {
+  display: grid;
+  grid-template-columns: auto 80px 1fr; /* root | connectors | children */
+  align-items: center;
+  column-gap: 16px;
+}
+
+/* Root column */
+.tree-root-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Middle column: main vertical line + spokes up/down */
+.tree-connector-col {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* main vertical bar from top child to bottom child */
+.tree-main-connector {
+  width: 2px;
+  height: 70%;
+  background: #e5e7eb;
+}
+
+/* each spoke is a small horizontal curve from main line to child row */
+.tree-spokes {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 70%;
+  pointer-events: none;
+}
+
+.tree-spoke {
+  position: relative;
+  width: 40px;
+  height: 18px;
+}
+
+.tree-spoke::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 40px;
+  height: 2px;
+  background: #e5e7eb;
+}
+
+/* Children column */
+.tree-children-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Node styles */
+
+.tree-node {
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+  min-width: 190px;
+  text-align: left;
+}
+
+.tree-node-root {
+  background: #2563eb;
+  border-color: #1d4ed8;
+  color: #ffffff;
+}
+
+.tree-node-child {
+  background: #f9fafb;
+  border-color: #e5e7eb;
+  color: #111827;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease,
+    border-color 0.12s ease;
+}
+
+.tree-node-child:hover {
+  transform: translateX(2px);
+  box-shadow: 0 4px 8px rgba(15, 23, 42, 0.12);
+  border-color: #93c5fd;
+}
+
+.tree-node-selected {
+  border-color: #f97316;
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.25);
+}
+
+.tree-node-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.tree-node-subtitle {
+  display: block;
+  font-size: 11px;
+  opacity: 0.9;
+}
+
+.empty-state.small {
+  font-size: 12px;
+}
+.tree-connector-col.curved {
+  position: relative;
+  width: 140px;  
+  z-index : 0;        /* space for curves */
+}
+
+.tree-connector-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.tree-branch-path {
+  fill: none;
+  stroke: #d4d4d8;       /* light grey */
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+.tree-children-col {
+  position: relative;
+  z-index: 1;              /* above curves */
+}
+
+.tree-children-stack {
+  margin-left: 12px;       /* push boxes right of the curves */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* row with two equal cards */
+.charts-row.equal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* 2 equal columns */
+  gap: 16px;
+}
+
+/* card shell */
+.card.chart-card.tall {
+  display: flex;
+  flex-direction: column;
+  height: 340px;                    /* same height for both charts */
+}
+
+/* header area inside card */
+.card.chart-card.tall .panel-header.no-bottom {
+  padding-bottom: 0;
+}
+
+/* chart area fills remaining height */
+.chart-body.tall-body {
+  flex: 1;
+  min-height: 0;
+}
+
+/* Recharts container always fills card body */
+.chart-body.tall-body > .recharts-responsive-container {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.card.chart-card .recharts-default-legend {
+  margin-top: 0;
+}
+
+.charts-row.equal .chart-card.no-shadow.tall {
+  display: flex;
+  flex-direction: column;
+  height: 320px;        /* same height for tree and chart */
+}
+
+/* tree body should stretch like chart body */
+.decomp-tree.horizontal {
+  flex: 1;
+  min-height: 0;
+}
+
+/* trade volume card body already uses this */
+.chart-body.tall-body {
+  flex: 1;
+  min-height: 0;
+}
+
+
+
+
+
+
+
+

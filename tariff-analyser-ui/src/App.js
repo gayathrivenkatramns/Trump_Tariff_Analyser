@@ -9,6 +9,7 @@ import AdminDashboardPage from "./components/AdminDashboardPage";
 import ProductLibraryPage from "./components/ProductLibraryPage";
 import AgreementManagementPage from "./components/AgreementsManagementPage";
 import CountryTable from "./components/CountryTable";
+import TariffImpactAnalysis from "./components/TariffImpactAnalysis";
 import IndustryExplorerPage from "./components/IndustryExplorerPage";
 
 import "./App.css";
@@ -91,7 +92,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* login + signup shell */}
+        {/* login + signup */}
         <Route path="/" element={<AuthShell />} />
 
         {/* user dashboard home */}
@@ -106,8 +107,10 @@ function App() {
         {/* admin dashboard */}
         <Route path="/admin" element={<AdminDashboardPage />} />
 
-        {/* product library */}
+        {/* admin features */}
         <Route path="/admin/products" element={<ProductLibraryPage />} />
+        <Route path="/admin/countries" element={<CountryTable />} />
+        <Route path="/admin/agreements" element={<AgreementManagementPage />} />
 
         {/* country & tariff database */}
         <Route path="/admin/countries" element={<CountryTable />} />
@@ -116,6 +119,12 @@ function App() {
         <Route
           path="/admin/agreements"
           element={<AgreementManagementPage />}
+        />
+
+        {/* 🔥 Trump / Tariff Impact Analyser */}
+        <Route
+          path="/admin/tariff-impact"
+          element={<TariffImpactAnalysis />}
         />
 
         {/* fallback */}

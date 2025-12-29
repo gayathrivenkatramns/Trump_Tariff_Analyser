@@ -17,9 +17,12 @@ const userManagementRoutes = require('./routes/userManagementRoutes'); // /users
 const productRoutes = require('./routes/productRoutes');
 const agreementRoutes = require('./routes/agreementRoutes');         // agreements
 
-// NEW: Country routes
+// Country routes
 const countryRoutes = require('./routes/countryRoutes');
 const industryRoutes = require('./routes/industryRoutes'); //industry routes
+
+// Impact Analysis (Excel + charts)
+const impactAnalysisRoutes = require('./routes/impact_analysis.routes');
 
 const app = express();
 
@@ -39,6 +42,7 @@ app.get('/', (req, res) => {
       products: '/api/products',
       agreements: '/api/agreements',
       countries: '/api/countries',
+      impact_analysis: '/api/impact-analysis',
     },
   });
 });
@@ -63,22 +67,29 @@ app.use('/api/forex', forexRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/agreements', agreementRoutes);
 
-// NEW: Countries API (list, filter, search)
+// Countries API
 app.use('/api/countries', countryRoutes);
 app.use('/api', industryRoutes);  // Mount industry routes
+
+// Impact Analysis Excel + chart API
+app.use('/api/impact-analysis', impactAnalysisRoutes);
 
 const PORT = process.env.PORT || 5000;
 
 // ---------- Start server ----------
 sequelize
-  .sync() // or .sync({ alter: true }) only in dev if you want auto‑altering
+  .sync()
   .then(() => {
     console.log('✓ DB synced');
     console.log('✓ User model loaded:', !!User);
     console.log('✓ Country model loaded:', !!Country);
+    console.log('✓ Impact Analysis API mounted: /api/impact-analysis');
     app.listen(PORT, () => {
       console.log(`✓ Server running on port ${PORT}`);
-      console.log(`✓ Try: http://localhost:${PORT}/api/countries`);
+      console.log(`✓ Try: http://localhost:${PORT}/api/impact-analysis/currency`);
+      console.log(`✓ Try: http://localhost:${PORT}/api/impact-analysis/duty-type`);
+      console.log(`✓ Try: http://localhost:${PORT}/api/impact-analysis/tariff`);
+      console.log(`✓ Try: http://localhost:${PORT}/api/impact-analysis/tariffimpact`);
     });
   })
   .catch((err) => {

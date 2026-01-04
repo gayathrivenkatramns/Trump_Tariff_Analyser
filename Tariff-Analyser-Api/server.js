@@ -23,6 +23,11 @@ const countryRoutes = require("./routes/countryRoutes");
 // NEW: Taxation routes
 const taxationRoutes = require("./routes/taxationRoutes");
 
+const industryRoutes = require('./routes/industryRoutes'); //industry routes
+
+// Impact Analysis (Excel + charts)
+const impactAnalysisRoutes = require('./routes/impact_analysis.routes');
+
 const app = express();
 
 // ---------- Global middleware ----------
@@ -73,6 +78,12 @@ app.use("/api/countries", countryRoutes);
 //   /api/taxation/industry-rates
 //   /api/taxation/summary
 app.use("/api/taxation", taxationRoutes);
+// Countries API
+app.use('/api/countries', countryRoutes);
+app.use('/api', industryRoutes);  // Mount industry routes
+
+// Impact Analysis Excel + chart API
+app.use('/api/impact-analysis', impactAnalysisRoutes);
 
 const PORT = process.env.PORT || 5000;
 

@@ -1,4 +1,7 @@
-// models/country.js
+'use strict';
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   const Country = sequelize.define('Country', {
     id: {
@@ -40,6 +43,5 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
     timestamps: true,
   });
-
   return Country;
 };

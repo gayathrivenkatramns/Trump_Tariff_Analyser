@@ -11,6 +11,8 @@ import ProductLibraryPage from "./components/ProductLibraryPage";
 import AgreementManagementPage from "./components/AgreementsManagementPage";
 import CountryTable from "./components/CountryTable";
 import UserManagement from "./components/UserManagement";
+import TariffImpactAnalysis from "./components/TariffImpactAnalysis";
+import IndustryExplorerPage from "./components/IndustryExplorerPage";
 
 import "./App.css";
 
@@ -25,6 +27,7 @@ function AuthShell() {
   };
 
   const handleUserLoginSuccess = () => {
+    // go to user dashboard home
     navigate("/user");
   };
 
@@ -91,20 +94,39 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* login + signup shell */}
+        {/* login + signup */}
         <Route path="/" element={<AuthShell />} />
 
-        {/* user dashboard */}
+        {/* user dashboard home */}
         <Route path="/user" element={<UserDashboard />} />
 
         {/* admin main dashboard */}
+        {/* user: industry explorer page */}
+        <Route
+          path="/user/industry-explorer"
+          element={<IndustryExplorerPage />}
+        />
+
+        {/* admin dashboard */}
         <Route path="/admin" element={<AdminDashboardPage />} />
 
-        {/* product library */}
+        {/* admin features */}
         <Route path="/admin/products" element={<ProductLibraryPage />} />
+        <Route path="/admin/countries" element={<CountryTable />} />
+        <Route path="/admin/agreements" element={<AgreementManagementPage />} />
 
         {/* agreement management */}
         <Route path="/admin/agreements" element={<AgreementManagementPage />} />
+        {/* country & tariff database */}
+        <Route path="/admin/countries" element={<CountryTable />} />
+
+      
+
+        {/* 🔥 Trump / Tariff Impact Analyser */}
+        <Route
+          path="/admin/tariff-impact"
+          element={<TariffImpactAnalysis />}
+        />
 
         {/* optional country route */}
         {/* <Route path="/admin/countries" element={<CountryTable />} /> */}

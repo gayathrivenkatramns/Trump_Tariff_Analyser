@@ -1,3 +1,4 @@
+// src/App.js
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 
@@ -8,7 +9,8 @@ import UserDashboard from "./components/UserDashboard";
 import AdminDashboardPage from "./components/AdminDashboardPage";
 import ProductLibraryPage from "./components/ProductLibraryPage";
 import AgreementManagementPage from "./components/AgreementsManagementPage";
-import CountryTable from "./components/CountryTable"; 
+import CountryTable from "./components/CountryTable";
+import UserManagement from "./components/UserManagement";
 
 import "./App.css";
 
@@ -95,17 +97,17 @@ function App() {
         {/* user dashboard */}
         <Route path="/user" element={<UserDashboard />} />
 
-        {/* admin dashboard */}
+        {/* admin main dashboard */}
         <Route path="/admin" element={<AdminDashboardPage />} />
 
         {/* product library */}
         <Route path="/admin/products" element={<ProductLibraryPage />} />
 
-        {/* country & tariff database */}
-        <Route path="/admin/countries" element={<CountryTable />} /> 
-
-        {/* agreement management page */}
+        {/* agreement management */}
         <Route path="/admin/agreements" element={<AgreementManagementPage />} />
+
+        {/* optional country route */}
+        {/* <Route path="/admin/countries" element={<CountryTable />} /> */}
 
         {/* fallback */}
         <Route path="*" element={<AuthShell />} />

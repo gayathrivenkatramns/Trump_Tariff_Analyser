@@ -23,12 +23,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(50),
       allowNull: false,
     },
-    column2_status: {
-      type: DataTypes.ENUM('Applied', 'Not Applied'),
-      defaultValue: 'Not Applied',
+    status: {
+      type: DataTypes.ENUM('General', 'Special', 'Column2'),
+      allowNull: false,
     },
-    fta_eligibility: {
-      type: DataTypes.TEXT,
+    eligibility_criteria: {
+      type: DataTypes.STRING(50),
       allowNull: true,
     },
     tariff_data_status: {
@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     tableName: 'countries',
-    underscored: true,   // so created_at/updated_at match
+    underscored: true,
     timestamps: true,
   });
 

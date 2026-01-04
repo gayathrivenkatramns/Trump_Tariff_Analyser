@@ -1,6 +1,6 @@
 // src/components/AdminDashboardPage.js
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import {
   FiPieChart,
@@ -9,7 +9,6 @@ import {
   FiGlobe,
   FiBox,
   FiBarChart2,
-  FiBell,
   FiMessageSquare,
   FiLogOut,
 } from "react-icons/fi";
@@ -19,7 +18,12 @@ import "../App.css";
 
 function AdminDashboardPage() {
   const navigate = useNavigate();
-  const [currentPage, setCurrentPage] = useState("dashboard");
+  const location = useLocation();
+
+  // Read optional state from navigate("/admin", { state: { page: "users" } })
+  const [currentPage, setCurrentPage] = useState(
+    location.state?.page || "dashboard"
+  );
 
   const handleLogout = () => {
     localStorage.removeItem("adminToken");
@@ -32,7 +36,7 @@ function AdminDashboardPage() {
   const totalQueries = 45892;
   const systemHealth = 98.2;
 
-  // Sidebar menu items
+  // Sidebar menu items (News removed)
   const menuItems = [
     { id: "dashboard", label: "Admin Dashboard", icon: <FiPieChart /> },
     { id: "users", label: "User Management", icon: <FiUsers /> },
@@ -40,7 +44,6 @@ function AdminDashboardPage() {
     { id: "countries", label: "Country Database", icon: <FiGlobe /> },
     { id: "products", label: "Product Library", icon: <FiBox /> },
     { id: "reports", label: "Reports", icon: <FiBarChart2 /> },
-    { id: "news", label: "News Feed Manager", icon: <FiBell /> },
     { id: "feedback", label: "Feedback Inbox", icon: <FiMessageSquare /> },
   ];
 
@@ -230,22 +233,6 @@ function AdminDashboardPage() {
                     <span className="admin-function-meta">234 reports</span>
                   </div>
                 </div>
-
-                {/* News Feed Manager card */}
-                <div
-                  className="admin-function-card"
-                  onClick={() => setCurrentPage("news")}
-                  style={{ cursor: "pointer" }}
-                >
-                  <div className="admin-func-icon news">
-                    <span>📰</span>
-                  </div>
-                  <div className="admin-func-content">
-                    <h3>News Feed Manager</h3>
-                    <p>Manage news articles and updates.</p>
-                    <span className="admin-function-meta">156 articles</span>
-                  </div>
-                </div>
               </div>
             </section>
 
@@ -335,13 +322,6 @@ function AdminDashboardPage() {
         {currentPage === "reports" && (
           <section className="admin-hero">
             <h1>Reports</h1>
-            <p>Coming soon...</p>
-          </section>
-        )}
-
-        {currentPage === "news" && (
-          <section className="admin-hero">
-            <h1>News Feed Manager</h1>
             <p>Coming soon...</p>
           </section>
         )}

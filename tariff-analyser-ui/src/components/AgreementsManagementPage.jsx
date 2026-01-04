@@ -8,10 +8,10 @@ import {
   FiGlobe,
   FiBox,
   FiBarChart2,
-  FiBell,
   FiMessageSquare,
   FiLogOut,
 } from "react-icons/fi";
+import CountryTable from "../components/CountryTable";
 import "./AgreementsManagementPage.css";
 import "../App.css";
 
@@ -26,6 +26,7 @@ const EMPTY_FORM = {
 const AgreementsManagementPage = () => {
   const navigate = useNavigate();
 
+  const [view, setView] = useState("agreements"); // "agreements" | "countries"
   const [agreements, setAgreements] = useState([]);
   const [statusFilter, setStatusFilter] = useState("All Status");
   const [search, setSearch] = useState("");
@@ -161,7 +162,7 @@ const AgreementsManagementPage = () => {
 
   return (
     <div className="admin-layout">
-      {/* Sidebar – copied from AdminDashboardPage, with Agreements active */}
+      {/* Sidebar */}
       <aside className="sidebar admin-sidebar">
         <div className="sidebar-header">
           <div className="sidebar-logo-circle">TI</div>
@@ -169,6 +170,7 @@ const AgreementsManagementPage = () => {
         </div>
 
         <nav className="sidebar-nav">
+          {/* Back to main admin dashboard (with sidebar) */}
           <button
             className="nav-item"
             type="button"
@@ -180,16 +182,23 @@ const AgreementsManagementPage = () => {
             <span className="nav-label">Admin Dashboard</span>
           </button>
 
-          <button className="nav-item" type="button">
+          {/* User Management – go to /admin with users tab */}
+          <button
+            className="nav-item"
+            type="button"
+            onClick={() => navigate("/admin", { state: { page: "users" } })}
+          >
             <span className="nav-icon">
               <FiUsers />
             </span>
             <span className="nav-label">User Management</span>
           </button>
 
+          {/* Agreements tab */}
           <button
-            className="nav-item active"
+            className={`nav-item ${view === "agreements" ? "active" : ""}`}
             type="button"
+            onClick={() => setView("agreements")}
           >
             <span className="nav-icon">
               <FiFileText />
@@ -197,7 +206,12 @@ const AgreementsManagementPage = () => {
             <span className="nav-label">Agreements Management</span>
           </button>
 
-          <button className="nav-item" type="button">
+          {/* Country Database tab */}
+          <button
+            className={`nav-item ${view === "countries" ? "active" : ""}`}
+            type="button"
+            onClick={() => setView("countries")}
+          >
             <span className="nav-icon">
               <FiGlobe />
             </span>
@@ -224,13 +238,6 @@ const AgreementsManagementPage = () => {
 
           <button className="nav-item" type="button">
             <span className="nav-icon">
-              <FiBell />
-            </span>
-            <span className="nav-label">News Feed Manager</span>
-          </button>
-
-          <button className="nav-item" type="button">
-            <span className="nav-icon">
               <FiMessageSquare />
             </span>
             <span className="nav-label">Feedback Inbox</span>
@@ -249,243 +256,261 @@ const AgreementsManagementPage = () => {
         </nav>
       </aside>
 
-      {/* Main content for Agreements */}
+      {/* Main content: switch between Agreements and Countries */}
       <main className="admin-main">
         <div className="agreements-page">
           <header className="agrements-header">
-            <h1>Agreements Management</h1>
+            <h1>
+              {view === "agreements"
+                ? "Agreements Management"
+                : "Country & Tariff Database"}
+            </h1>
           </header>
 
-          <div className="agreements-toolbar">
-            <div className="breadcrumb">
-              <span className="breadcrumb-home">🏠</span>
-              <span className="breadcrumb-sep">/</span>
-              <span>Agreements Management</span>
-            </div>
-
-            <div className="toolbar-row">
-              <div className="search-box">
-                <span className="search-icon">🔍</span>
-                <input
-                  type="text"
-                  placeholder="Search by agreement name, code, or country..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                />
-              </div>
-
-              <select
-                className="status-filter"
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
-              >
-                <option>All Status</option>
-                <option>In force</option>
-                <option>Superseded/Suspended</option>
-                <option>Deleted/Superseded</option>
-              </select>
-
-              <button className="add-agreement-btn" onClick={openAddForm}>
-                + Add Agreement
-              </button>
-            </div>
-          </div>
-
-          <main className="agreements-content">
-            <div className="agreements-card">
-              <div className="agreements-card-header">
-                <div>
-                  <h2>Trade Agreements ({filtered.length})</h2>
+          {view === "agreements" && (
+            <>
+              <div className="agreements-toolbar">
+                <div className="breadcrumb">
+                  <span className="breadcrumb-home">🏠</span>
+                  <span className="breadcrumb-sep">/</span>
+                  <span>Agreements Management</span>
                 </div>
-                <span className="total-count">
-                  Total: {agreements.length} agreements
-                </span>
-              </div>
 
-              <table className="agreements-table">
-                <thead>
-                  <tr>
-                    <th>Agreement Code</th>
-                    <th>Agreement Name</th>
-                    <th>Countries Included</th>
-                    <th>Validity Period</th>
-                    <th>Status</th>
-                    <th>Version</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filtered.map((a, index) => (
-                    <tr key={index}>
-                      <td>
-                        <button className="code-pill">
-                          {a.AgreementCode}
-                        </button>
-                      </td>
-                      <td>{a.AgreementName}</td>
-                      <td>
-                        {(a.CountriesIncluded || "")
-                          .split(",")
-                          .map((c) => c.trim())
-                          .filter(Boolean)
-                          .map((c) => (
-                            <span key={c} className="country-pill">
-                              {c}
-                            </span>
-                          ))}
-                      </td>
-                      <td className="validity-cell">
-                        <span>{a.ValidityPeriod}</span>
-                        <span className="copy-icon">📋</span>
-                      </td>
-                      <td>
-                        <span
-                          className={
-                            a.Status === "In force"
-                              ? "status-pill active"
-                              : a.Status === "Superseded/Suspended"
-                              ? "status-pill pending"
-                              : a.Status === "Deleted/Superseded"
-                              ? "status-pill inactive"
-                              : "status-pill inactive"
-                          }
-                        >
-                          {a.Status}
-                        </span>
-                      </td>
-                      <td>
-                        <span className="version-pill">
-                          {a.Version ? `v${a.Version}` : "v1"}
-                        </span>
-                      </td>
-                      <td className="actions-cell">
-                        <button
-                          className="icon-btn blue"
-                          onClick={() => openEditForm(a)}
-                        >
-                          ✏️
-                        </button>
-                        <button
-                          className="icon-btn red"
-                          onClick={() =>
-                            handleDelete(a.AgreementCode)
-                          }
-                        >
-                          🗑
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                  {filtered.length === 0 && (
-                    <tr>
-                      <td colSpan="7" className="empty-row">
-                        No agreements match your filters.
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-
-            {showForm && (
-              <div
-                className="agreements-form-backdrop"
-                onClick={() => setShowForm(false)}
-              >
-                <div
-                  className="agreements-form-modal"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <div className="agreements-form-modal-header">
-                    <h3>
-                      {isEdit ? "Edit Agreement" : "Add Agreement"}
-                    </h3>
-                    <button
-                      className="modal-close-btn"
-                      onClick={() => setShowForm(false)}
-                    >
-                      ✕
-                    </button>
+                <div className="toolbar-row">
+                  <div className="search-box">
+                    <span className="search-icon">🔍</span>
+                    <input
+                      type="text"
+                      placeholder="Search by agreement name, code, or country..."
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                    />
                   </div>
 
-                  <form
-                    onSubmit={handleSave}
-                    className="agreements-form-modal-body"
+                  <select
+                    className="status-filter"
+                    value={statusFilter}
+                    onChange={(e) => setStatusFilter(e.target.value)}
                   >
-                    <label>
-                      Agreement Code
-                      <input
-                        name="AgreementCode"
-                        value={form.AgreementCode}
-                        onChange={handleFormChange}
-                        required
-                      />
-                    </label>
+                    <option>All Status</option>
+                    <option>In force</option>
+                    <option>Superseded/Suspended</option>
+                    <option>Deleted/Superseded</option>
+                  </select>
 
-                    <label>
-                      Agreement Name
-                      <input
-                        name="AgreementName"
-                        value={form.AgreementName}
-                        onChange={handleFormChange}
-                        required
-                      />
-                    </label>
-
-                    <label>
-                      Countries Included
-                      <input
-                        name="CountriesIncluded"
-                        value={form.CountriesIncluded}
-                        onChange={handleFormChange}
-                        placeholder="United States; Australia"
-                      />
-                    </label>
-
-                    <label>
-                      Validity Period
-                      <input
-                        name="ValidityPeriod"
-                        value={form.ValidityPeriod}
-                        onChange={handleFormChange}
-                        placeholder="2005-01-01 to 2025-12-03"
-                      />
-                    </label>
-
-                    <label>
-                      Status
-                      <select
-                        name="Status"
-                        value={form.Status}
-                        onChange={handleFormChange}
-                      >
-                        <option value="In force">In force</option>
-                        <option value="Superseded/Suspended">
-                          Superseded/Suspended
-                        </option>
-                        <option value="Deleted/Superseded">
-                          Deleted/Superseded
-                        </option>
-                      </select>
-                    </label>
-
-                    <div className="form-buttons modal-buttons">
-                      <button
-                        type="button"
-                        className="btn-secondary"
-                        onClick={() => setShowForm(false)}
-                      >
-                        Cancel
-                      </button>
-                      <button type="submit" className="btn-primary">
-                        {isEdit ? "Update" : "Create"}
-                      </button>
-                    </div>
-                  </form>
+                  <button
+                    className="add-agreement-btn"
+                    onClick={openAddForm}
+                  >
+                    + Add Agreement
+                  </button>
                 </div>
               </div>
-            )}
-          </main>
+
+              <main className="agreements-content">
+                <div className="agreements-card">
+                  <div className="agreements-card-header">
+                    <div>
+                      <h2>Trade Agreements ({filtered.length})</h2>
+                    </div>
+                    <span className="total-count">
+                      Total: {agreements.length} agreements
+                    </span>
+                  </div>
+
+                  <table className="agreements-table">
+                    <thead>
+                      <tr>
+                        <th>Agreement Code</th>
+                        <th>Agreement Name</th>
+                        <th>Countries Included</th>
+                        <th>Validity Period</th>
+                        <th>Status</th>
+                        <th>Version</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filtered.map((a, index) => (
+                        <tr key={index}>
+                          <td>
+                            <button className="code-pill">
+                              {a.AgreementCode}
+                            </button>
+                          </td>
+                          <td>{a.AgreementName}</td>
+                          <td>
+                            {(a.CountriesIncluded || "")
+                              .split(",")
+                              .map((c) => c.trim())
+                              .filter(Boolean)
+                              .map((c) => (
+                                <span
+                                  key={c}
+                                  className="country-pill"
+                                >
+                                  {c}
+                                </span>
+                              ))}
+                          </td>
+                          <td className="validity-cell">
+                            <span>{a.ValidityPeriod}</span>
+                            <span className="copy-icon">📋</span>
+                          </td>
+                          <td>
+                            <span
+                              className={
+                                a.Status === "In force"
+                                  ? "status-pill active"
+                                  : a.Status === "Superseded/Suspended"
+                                  ? "status-pill pending"
+                                  : "status-pill inactive"
+                              }
+                            >
+                              {a.Status}
+                            </span>
+                          </td>
+                          <td>
+                            <span className="version-pill">
+                              {a.Version ? `v${a.Version}` : "v1"}
+                            </span>
+                          </td>
+                          <td className="actions-cell">
+                            <button
+                              className="icon-btn blue"
+                              onClick={() => openEditForm(a)}
+                            >
+                              ✏️
+                            </button>
+                            <button
+                              className="icon-btn red"
+                              onClick={() =>
+                                handleDelete(a.AgreementCode)
+                              }
+                            >
+                              🗑
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                      {filtered.length === 0 && (
+                        <tr>
+                          <td colSpan="7" className="empty-row">
+                            No agreements match your filters.
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+
+                {showForm && (
+                  <div
+                    className="agreements-form-backdrop"
+                    onClick={() => setShowForm(false)}
+                  >
+                    <div
+                      className="agreements-form-modal"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <div className="agreements-form-modal-header">
+                        <h3>
+                          {isEdit ? "Edit Agreement" : "Add Agreement"}
+                        </h3>
+                        <button
+                          className="modal-close-btn"
+                          onClick={() => setShowForm(false)}
+                        >
+                          ✕
+                        </button>
+                      </div>
+
+                      <form
+                        onSubmit={handleSave}
+                        className="agreements-form-modal-body"
+                      >
+                        <label>
+                          Agreement Code
+                          <input
+                            name="AgreementCode"
+                            value={form.AgreementCode}
+                            onChange={handleFormChange}
+                            required
+                          />
+                        </label>
+
+                        <label>
+                          Agreement Name
+                          <input
+                            name="AgreementName"
+                            value={form.AgreementName}
+                            onChange={handleFormChange}
+                            required
+                          />
+                        </label>
+
+                        <label>
+                          Countries Included
+                          <input
+                            name="CountriesIncluded"
+                            value={form.CountriesIncluded}
+                            onChange={handleFormChange}
+                            placeholder="United States; Australia"
+                          />
+                        </label>
+
+                        <label>
+                          Validity Period
+                          <input
+                            name="ValidityPeriod"
+                            value={form.ValidityPeriod}
+                            onChange={handleFormChange}
+                            placeholder="2005-01-01 to 2025-12-03"
+                          />
+                        </label>
+
+                        <label>
+                          Status
+                          <select
+                            name="Status"
+                            value={form.Status}
+                            onChange={handleFormChange}
+                          >
+                            <option value="In force">In force</option>
+                            <option value="Superseded/Suspended">
+                              Superseded/Suspended
+                            </option>
+                            <option value="Deleted/Superseded">
+                              Deleted/Superseded
+                            </option>
+                          </select>
+                        </label>
+
+                        <div className="form-buttons modal-buttons">
+                          <button
+                            type="button"
+                            className="btn-secondary"
+                            onClick={() => setShowForm(false)}
+                          >
+                            Cancel
+                          </button>
+                          <button type="submit" className="btn-primary">
+                            {isEdit ? "Update" : "Create"}
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                )}
+              </main>
+            </>
+          )}
+
+          {view === "countries" && (
+            <div className="agreements-content">
+              <CountryTable />
+            </div>
+          )}
         </div>
       </main>
     </div>

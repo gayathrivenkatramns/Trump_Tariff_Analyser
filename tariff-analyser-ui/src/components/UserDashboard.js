@@ -1,5 +1,6 @@
 // src/components/UserDashboard.js
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   FiHome,
   FiLayers,
@@ -14,28 +15,30 @@ import {
 } from "react-icons/fi";
 import "../App.css";
 import ForexAnalysis from "./ForexAnalysis";
+import TaxationModule from "./TaxationModule"; // NEW
 import TariffImpactAnalysis from "./TariffImpactAnalysis";
 import IndustryExplorerPage from "./IndustryExplorerPage";   // <- NEW IMPORT
 
+// News item removed
 const menuItems = [
   { id: "dashboard", label: "Dashboard", icon: <FiHome /> },
   { id: "industry", label: "Industry Explorer", icon: <FiLayers /> },
   { id: "tariff", label: "Tariff Impact Analysis", icon: <FiBarChart2 /> },
-  { id: "taxation", label: "Taxation Module", icon: <FiFileText /> },
+  { id: "taxation", label: "Taxation Module", icon: <FiFileText /> }, // uses TaxationModule
   { id: "trade", label: "Trade Comparison", icon: <FiTrendingUp /> },
   { id: "forex", label: "Forex Analysis", icon: <FiDollarSign /> },
   { id: "cost", label: "Cost Calculator", icon: <FiGlobe /> },
   { id: "data", label: "Data Manager", icon: <FiDatabase /> },
-  { id: "news", label: "News", icon: <FiBarChart2 /> },
   { id: "settings", label: "Settings", icon: <FiSettings /> },
 ];
 
 const UserDashboard = () => {
   const [active, setActive] = useState("dashboard");
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("userToken");
-    window.location.reload();
+    navigate("/"); // go back to login page
   };
 
   const renderContent = () => {
@@ -53,6 +56,11 @@ const UserDashboard = () => {
     // Dedicated page for Forex Analysis
     if (active === "forex") {
       return <ForexAnalysis />;
+    }
+
+    // Taxation Module – single complex page
+    if (active === "taxation") {
+      return <TaxationModule />;
     }
 
     // Simple placeholder headings for other menu items

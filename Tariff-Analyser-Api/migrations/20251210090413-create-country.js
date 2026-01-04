@@ -1,12 +1,12 @@
-// migrations/XXXXXXXXXXXXXX-create-country.js
+// migrations/XXXXXXXXXXXXXX-create-countries.js
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('countries', {
       id: {
         type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
         allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
       },
       country_name: {
         type: Sequelize.STRING(100),
@@ -25,12 +25,12 @@ module.exports = {
         type: Sequelize.STRING(50),
         allowNull: false,
       },
-      column2_status: {
-        type: Sequelize.ENUM('Applied', 'Not Applied'),
-        defaultValue: 'Not Applied',
+      status: {
+        type: Sequelize.ENUM('General', 'Special', 'Column2'),
+        allowNull: false,
       },
-      fta_eligibility: {
-        type: Sequelize.TEXT,
+      eligibility_criteria: {
+        type: Sequelize.STRING(50),
         allowNull: true,
       },
       tariff_data_status: {

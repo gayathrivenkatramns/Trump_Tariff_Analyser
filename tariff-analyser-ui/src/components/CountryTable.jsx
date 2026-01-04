@@ -41,7 +41,6 @@ function CountryTable() {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     fetchCountries();
   }, [region, search]);
@@ -165,7 +164,7 @@ function CountryTable() {
                     <td>{c.currency}</td>
                     <td>{c.region}</td>
                     <td>{c.status}</td>
-                                        <td>{c.eligibility_criteria}</td>
+                    <td>{c.eligibility_criteria}</td>
                     <td>
                       <button
                         className="icon-btn"
@@ -275,4 +274,3 @@ function CountryTable() {
 }
 
 export default CountryTable;
-

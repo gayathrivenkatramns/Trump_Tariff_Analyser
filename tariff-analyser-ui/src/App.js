@@ -1,3 +1,4 @@
+// src/App.js
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 
@@ -9,6 +10,7 @@ import AdminDashboardPage from "./components/AdminDashboardPage";
 import ProductLibraryPage from "./components/ProductLibraryPage";
 import AgreementManagementPage from "./components/AgreementsManagementPage";
 import CountryTable from "./components/CountryTable";
+import UserManagement from "./components/UserManagement";
 import TariffImpactAnalysis from "./components/TariffImpactAnalysis";
 import IndustryExplorerPage from "./components/IndustryExplorerPage";
 
@@ -98,6 +100,7 @@ function App() {
         {/* user dashboard home */}
         <Route path="/user" element={<UserDashboard />} />
 
+        {/* admin main dashboard */}
         {/* user: industry explorer page */}
         <Route
           path="/user/industry-explorer"
@@ -112,20 +115,21 @@ function App() {
         <Route path="/admin/countries" element={<CountryTable />} />
         <Route path="/admin/agreements" element={<AgreementManagementPage />} />
 
+        {/* agreement management */}
+        <Route path="/admin/agreements" element={<AgreementManagementPage />} />
         {/* country & tariff database */}
         <Route path="/admin/countries" element={<CountryTable />} />
 
-        {/* agreement management page */}
-        <Route
-          path="/admin/agreements"
-          element={<AgreementManagementPage />}
-        />
+      
 
         {/* 🔥 Trump / Tariff Impact Analyser */}
         <Route
           path="/admin/tariff-impact"
           element={<TariffImpactAnalysis />}
         />
+
+        {/* optional country route */}
+        {/* <Route path="/admin/countries" element={<CountryTable />} /> */}
 
         {/* fallback */}
         <Route path="*" element={<AuthShell />} />
